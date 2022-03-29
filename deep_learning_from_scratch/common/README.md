@@ -1,16 +1,16 @@
-## Activation関数
+# Activation関数
 
 閾値を境にして出力が切り替わる関数
+ニューラルネットワークでは、活性化関数を用いて信号の変換を行い、その変換された信号が次のニューロンに送られる
 
-- Sigmoid Function
-  - 非線形関数
 
-$$
-\sigma(x) = \frac{1}{1 + e^{-x}} 
-$$
+## Sigmoid Function
+$$ h(x) = \frac{1}{1 + e^{-x}} $$
 
-- Relu(Rectified Linear Unit) Function
-  - 近年では主要に利用されている
+- 非線形関数
+
+## Relu(Rectified Linear Unit) Function
+- 近年では主要に利用されている
 
 $$
 h(x) =
