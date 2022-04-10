@@ -102,13 +102,24 @@ So we have to find optimized point between the bias and variance
 [//]: # (TODO read more documents and improve understanding)
 https://atmarkit.itmedia.co.jp/ait/articles/2009/09/news025.html
 
-## Technique to synthesize the features without losing the information
-### Feature Crosses
+## Feature Crosses
 - this will add non-linearity
 - To transform the categorical features to simplify the model and make it more efficient and faster
 
-### Principal Components Analysis(= PCA)
-A technique to reduce the number of features by creating new variables obtained from linear combinations 
+## Embeddings
+Embeddings, which transforms large sparse vectors into smaller vectors are used for categorical data.
+
+## Functinal Data Analysis
+Functinal Data Analysis, which copes with complexity. but it is used where it is possible to substitute features with `functions-`.
+
+[//]: # (TODO add some more description)
+
+## Principal Components Analysis(= PCA)
+A technique to reduce the number of features by creating new variables obtained from linear combinations or mixes of the original variables, which can replace them but retain most of the information useful for the model.
+
+And new features are all independent of each other.
+
+A linear model is assumed as a bias. Therefore the variables are called principal components.
 
 
 # How to address over fitting problems

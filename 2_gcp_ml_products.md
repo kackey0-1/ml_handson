@@ -4,6 +4,9 @@
 - to capture the data stream
 - It's convenient in many ways, such as being loosely coupled and easy to scale.
 
+This document may give us more useful information
+https://developers.cyberagent.co.jp/blog/archives/1672/
+
 ## Data Cleaning Service
 ### Dataprep
 Dataprep allows users to explore data visually by transforming the file into CSV, JSON, or in a graphical table format.
@@ -32,12 +35,14 @@ to aggregate and extract insights in real-time in BigQuery
 - Approach: Fully managed, No Ops Approach
 - Unique For: Batch and Streaming of data
 
-### Composer  
+### Composer
 
 ## Data Storage Service
 
 ### BigQuery
-- to create models
+- Allow us to do Exploratory Data Analysis and Feature Selection
+- Allow us to do Model building, Training and Hyperparameter tuning but not Automatic deployment and serving
+
 ### BigTable
 
 ## AI Products
@@ -56,23 +61,16 @@ an open-source platform to create and deploy ML workflow based on docker contain
 - Manage models version, workflows and retraining
 - Manage the complete model maintenance cycle
 
-## Solutions 
-### When you want to Simplify the pipelines as much as possible and use fully-managed or even serverless services as far as you can
-Use BigQuery & BigQuery ML
+### Document AI
+A complete service for the automatic understanding of documents and their management,
+Document AI, which integrates computer natural language processing, OCR and vision and enable us to create pre-trained templates aimed at intelligent document administration.
 
-- BigQuery
-  - You can use Standard SQL and CLI interfaces via bq command
-  - BigQuery Jobs
-    - You can use BigQuery jobs to automate tasks and operations
-- BigQuery ML
-  - able to train ML models with rich set of algorithms with data.
-  - able to perform feature engineering and hyperparameter tuning
-  - able to export BigQuery ML models to a Docker Images as required
+### Recommendation AI
+It's a ready-to-use service for all the requirements. Users don't need to create models, tune, train, all that is done by the service with users' data. Also delivery is automatically done, with high-quality recommendations via web, mobile, email.
 
-About Vertex AI, 
-it is managed service and enable you to use AutoML and custom training efficiently.
-But this is not serverless service especially for custom training.
+- Select your recommendation type
+- Select your objective
+- Set business rules
 
-### When you want to automate entire process of train to production start-up from static deep
-Vertex AI Pipelines can run pipelines built by using TFX(=TensorFlow Extended)
-<img src="https://s3.amazonaws.com/media.whizlabs.com/learn/ml19.png" />
+<img src="https://s3.amazonaws.com/media.whizlabs.com/learn/ml24.png">
+
