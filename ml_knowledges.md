@@ -46,7 +46,7 @@ it does not require labels. But it requires a lot of data and several trial and 
 - deep Q-network(DQN)
 - deep deterministic policy gradient
 
-[//]: # (TODO)
+[//]: # (TODO summarize other models evaluation)
 # ML Evaluation 
 - Classification model
   - Binary Classification
@@ -56,79 +56,63 @@ it does not require labels. But it requires a lot of data and several trial and 
       - Recall: Rate of real positive correctly identified
 
 # Technique
-- TensorFlow API
-  - TabNet with TensorFlow Estimator API
-  - TensorFlow Object Detection API
-    - designed to identify and localize multiple objects within images 
-- BigQuery ML
-  - XGBoost by BQ
-    - designed for structured data
-  - BigQuery Boosted Tree
-    - an ensemble of Decision Trees which is not suitable for time-series data
-  - BigQuery ARIMA
-    - ML ARIMA_PLUS can manage time-series forecasts
+## TensorFlow API
+- TabNet with TensorFlow Estimator API
+- TensorFlow Object Detection API
+  - designed to identify and localize multiple objects within images 
+- TensorFlow Extended(=TFX)
+  - A platform that allows you to create scalable production ML pipelines for TensorFlow projects, therefore KubeFlow.
+  - It allows you to manage entire life-cycle seamlessly from training, and validating, up to production start-up and management of the inference service.
+  - Executor components
+    - Apache Beam
+    - tensorflow
+    - simple python program
+    - container(Kubeflow, Apache Airflow)
+
+## BigQuery ML
+- XGBoost by BQ
+  - designed for structured data
+- BigQuery Boosted Tree
+  - an ensemble of Decision Trees which is not suitable for time-series data
+- BigQuery ARIMA
+  - ML ARIMA_PLUS can manage time-series forecasts
+
+# How to improve learning quality
+## Normalization Techniques
+- Clipping
+  - Feature of Clipping is that eliminates outliers that are too high or too low
+- Log Scaling
+- Scaling to a range
+  - Scaling means transforming feature values into a standard range
+    - from 0 and 1
+    - or sometimes -1 to +1
+    - or even distribution between minimum and maximum
+- Z-score
+  - gives us insight of how many standard deviation each value is away from the mean.
+
+## Bias-Variance Dilemma
+The bias error is the non-estimable part of the learning algorithm.
+The higher it is, The more under-fitting there is.
+
+Variance is the sensitivity to differences in the training set.
+The higher it is, the more over-fitting there is.
+
+So we have to find optimized point between the bias and variance
+
+[//]: # (TODO read more documents and improve understanding)
+https://atmarkit.itmedia.co.jp/ait/articles/2009/09/news025.html
+
+## Technique to synthesize the features without losing the information
+### Feature Crosses
+- this will add non-linearity
+- To transform the categorical features to simplify the model and make it more efficient and faster
+
+### Principal Components Analysis(= PCA)
+A technique to reduce the number of features by creating new variables obtained from linear combinations 
+
 
 # How to address over fitting problems
 - L1 Lasso Regression
 - L2 Ridge Regression
 - Dropout
 - EarlyStop
-
-
-# GCP Products
-## Queueing Service
-### Pub/Sub
-- to capture the data stream
-- It's convenient in many ways, such as being loosely coupled and easy to scale.
-
-## Data Cleaning Service
-### Dataprep
-Dataprep allows users to explore data visually by transforming the file into CSV, JSON, or in a graphical table format.
-- Provisioning: Fully automated provisioning of clusters
-- System Integration: BigTable and BigQuery
-- Ease of Use: Easy to use
-- Approach: Fully managed, No ops approach
-- Unique For: UI driven processing of data
-
-### Dataproc
-With the in-built monitoring system, you can transfer your cluster data to your applications. 
-You can get quick-reports from the system and also have the feature of storing data in Google’s BigQuery.
-- Provisioning: provisioning clusters is done manually
-- System Integration: Apache Spark and Hadoop
-- Ease of Use: simple, easy to use
-- Approach: Hands-On, DevOps Approach
-- Unique For: Data Science / ML Ecosystem
-
-### Dataflow
-ETL(Extract, transform, and load) data into multiple data warehouses at the same time.
-Dataflow is considered as MapReduce replacement to handle large number of parallelization tasks.
-to aggregate and extract insights in real-time in BigQuery
-- Provisioning: Serverless, automatic provisioning of clusters
-- System Integration: Apache Beam
-- Ease of Use: Relatively difficult
-- Approach: Fully managed, No Ops Approach
-- Unique For: Batch and Streaming of data
-
-### Composer  
-
-## Data Storage Service
-
-### BigQuery
-- to create models
-### BigTable
-
-## AI Products
-### Kubeflow Pipeline
-an open-source platform to create and deploy ML workflow based on docker container
-- Using packaged templates in Dokcer images in a k8s environment
-- Manage your various tests/experiments
-- Simplifying the orchestration of ML pipelines
-- Reuse components and pipelines
-
-### Vertex AI
-- Train an ML without code(AutoML) and with custom
-- Evaluate and Tune models
-- Deploy models
-- Manage prediction batch, online and monitoring
-- Manage models version, workflows and retraining
-- Manage the complete model maintenance cycle
