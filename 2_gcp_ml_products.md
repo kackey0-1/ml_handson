@@ -14,13 +14,13 @@ Dataprep allows users to explore data visually by transforming the file into CSV
 - System Integration: BigTable and BigQuery
 - Ease of Use: Easy to use
 - Approach: Fully managed, No ops approach
-- Unique For: UI driven processing of data
+- Unique For: UI driven processing of data(cleaning/exploration/preparation)
 
 ### Dataproc
 With the in-built monitoring system, you can transfer your cluster data to your applications. 
 You can get quick-reports from the system and also have the feature of storing data in Google’s BigQuery.
 - Provisioning: provisioning clusters is done manually
-- System Integration: Apache Spark and Hadoop
+- System Integration: Apache Spark and Hadoop(managed Hadoop service)
 - Ease of Use: simple, easy to use
 - Approach: Hands-On, DevOps Approach
 - Unique For: Data Science / ML Ecosystem
@@ -35,7 +35,21 @@ to aggregate and extract insights in real-time in BigQuery
 - Approach: Fully managed, No Ops Approach
 - Unique For: Batch and Streaming of data
 
+### Could Data Fusion
+Could Data Fusion is a managed service for quickly building data pipelines and ETL processes.
+It is based on the open-source CDAP(Clinical Data Analytics Platform) project and therefore is portable to any environment.
+It has a visual interface that allows you to create codeless data pipelines as required.
+
+- Data Warehouse
+- Data Migration
+- Data Consolidation
+- Master Data Management
+- Data Consistency
+
+<img src="https://s3.amazonaws.com/media.whizlabs.com/learn/ml35.png">
+
 ### Composer
+[//]: # (TODO Check Composer products in details)
 
 ## Data Storage Service
 
@@ -68,9 +82,33 @@ Document AI, which integrates computer natural language processing, OCR and visi
 ### Recommendation AI
 It's a ready-to-use service for all the requirements. Users don't need to create models, tune, train, all that is done by the service with users' data. Also delivery is automatically done, with high-quality recommendations via web, mobile, email.
 
+#### Features
 - Select your recommendation type
 - Select your objective
 - Set business rules
 
+#### Recommendation Types
+- Others you may like
+- Frequently Bought Together
+- Recommended for you
+- Recently Viewed
+  - This recommendation is useless for new products
+  - And this is actually not recommendation 
+
 <img src="https://s3.amazonaws.com/media.whizlabs.com/learn/ml24.png">
+
+### AutoML
+#### AutoML Vision
+AutoML Vision lets you train models to classify your images with your own characteristics and labels. 
+So you can tailor your work as you want.
+
+#### AutoML Vision Edge
+AutoML Vision Edge is for local devices.
+
+### Vision AI
+Vision AI uses pre-trained models trained by Google. This is powerfull, but less customizable for customized classifications.
+
+### Video AI
+Video AI manages videos, not images.
+It can extract metadata from any streaming video, get insights in a far shorter time, and let trigger events
 
