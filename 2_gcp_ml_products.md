@@ -103,7 +103,7 @@ AutoML Vision lets you train models to classify your images with your own charac
 So you can tailor your work as you want.
 
 #### AutoML Vision Edge
-AutoML Vision Edge is for local devices.
+AutoML Vision Edge lets you model deployed on edge devices such as mobile phone.
 
 ### Vision AI
 Vision AI uses pre-trained models trained by Google. This is powerfull, but less customizable for customized classifications.

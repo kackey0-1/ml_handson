@@ -109,3 +109,24 @@ All these solutions ideal for increasing power and speed at the right cost for y
   - SSML gives you the ability to indicate how you want to format the audit, pauses, how to read acronyms
 
 Polly is AWS service.
+
+## When Your model is complex, and you work with huge datasets with complex matrix computations. You have a big problem: your training jobs last for weeks. You are not going to deliver your project in time.
+Cloud TPU is the best solution for this use case, which requires following requirements.
+
+- Use TensorFlow
+- Need training for weeks or months
+- Have huge matrix computations
+- Have deals with big datasets and effective batch size
+
+## When you want to use TPUs instead of CPUs with Vertex AI. Since you are not using Docker images or custom containers.
+
+Use scale-tier to BASIC_TPU is the best solution.
+- Vertex AI lets you perform distributed training and serving with accelerations (GPUs and TPUs)
+- You usually must specify the number and types of machines you need for your need for master and worker VMs. But you can also use scale-tiers that are predefined cluster specification.
+
+Note 
+- Set Master-machine-type
+- Set Worker-machine-type
+- Set parameterServerType
+
+workerType, parameterSererType, evaluatorType, workerCount, parameterServerCount and evaluatorCount for jobs use custom concontainer and for TensorFlow jobs
