@@ -9,6 +9,8 @@
 Hierarchical Clustering creates clusters using a hierarchical tree. 
 It may be effective on recommendation system but it is heavy with a lot of data.
 
+---
+
 ## Supervised Learning
 ### Linear Model
 - Simple Linear Model
@@ -73,6 +75,8 @@ Autoencoder and self-encoder are useful when you need to reduce the number of va
 Collaborative Filtering works the idea that a user may like same things of the people with similar profiles and preferences. So exploiting the choices of other users, the recommendation system makes a guess and can advise people on things not yet been rated by them.
 <img src="https://s3.amazonaws.com/media.whizlabs.com/learn/ml33.png">
 
+---
+
 ## Reinforcement Learning(RL)
 RL provides a software agent that evaluates possible solutions through a progressive reward in repeated attempts.
 it does not require labels. But it requires a lot of data and several trial and the possibility to evaluate the validity of each attempt.
@@ -81,6 +85,9 @@ it does not require labels. But it requires a lot of data and several trial and 
 - deep deterministic policy gradient
 
 [//]: # (TODO summarize other models evaluation)
+
+---
+
 # ML Evaluation 
 - Classification model
   - Binary Classification

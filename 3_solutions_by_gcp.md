@@ -15,9 +15,13 @@ About Vertex AI,
 it is managed service and enable you to use AutoML and custom training efficiently.
 But this is not serverless service especially for custom training.
 
+---
+
 ## When you want to automate entire process of train to production start-up from static deep
 Vertex AI Pipelines can run pipelines built by using TFX(=TensorFlow Extended)
 <img src="https://s3.amazonaws.com/media.whizlabs.com/learn/ml19.png" />
+
+---
 
 ## When you want to automate the re-development and distribution process every time it recieves a new file
 1. Could Storage to recieve new files
@@ -27,6 +31,8 @@ Vertex AI Pipelines can run pipelines built by using TFX(=TensorFlow Extended)
 3. Other services like Dataflow
 
 <img src="https://s3.amazonaws.com/media.whizlabs.com/learn/ml21.png">
+
+---
 
 ## When you need create a muti-class classification ML model with Keras Sequential model API. in particular, your model must indicate the main categories of a text. 
 
@@ -45,6 +51,8 @@ Vertex AI Pipelines can run pipelines built by using TFX(=TensorFlow Extended)
 
 but not K-Means. because this is for unsupervised learning
 
+---
+
 ## When you train your DNN with TensorFlow, your input data does not fit into RAM memory. Which can you do in the simplest way ?
 
 tf.data.Dataset allows you to manage a set of complex elements made up of several inner components.
@@ -57,6 +65,8 @@ These iterations happen in streaming. So they work even if the input matrix is v
 - pandas.DataFrame
 - NumPy
   - these  are work in real memory. so they don't solve the problem
+
+---
 
 ## When you want to quickly create an optimal model, both from the point of view of the algorithm used and the tuning and life cycle of the model. You work on historical tabular data. 
 You work for a large retail company. You are preparing a marketing model. The model will have to make predictions based on the historical and analytical data of the e-commerce site (analytics-360). In particular, customer loyalty and remarketing possibilities should be studied. 
@@ -83,6 +93,8 @@ Vertex AI is a new API that combines AutoML and AI Platform. You can use both Au
 
 <img src="https://s3.amazonaws.com/media.whizlabs.com/learn/ml30.png">
 
+---
+
 ## When you want to increase the power of your training quickly. But your management wants to keep costs down.
 https://cloud.google.com/tpu
 
@@ -95,6 +107,8 @@ https://cloud.google.com/tpu
   - use the Profiler with TensorBoard
 
 All these solutions ideal for increasing power and speed at the right cost for your training.
+
+---
 
 ## When manager asked you what the GCP techniques support the computer's ability to entertain almost human dialogues and if these techniques can be used individually.
 
@@ -110,6 +124,8 @@ All these solutions ideal for increasing power and speed at the right cost for y
 
 Polly is AWS service.
 
+---
+
 ## When Your model is complex, and you work with huge datasets with complex matrix computations. You have a big problem: your training jobs last for weeks. You are not going to deliver your project in time.
 Cloud TPU is the best solution for this use case, which requires following requirements.
 
@@ -117,6 +133,8 @@ Cloud TPU is the best solution for this use case, which requires following requi
 - Need training for weeks or months
 - Have huge matrix computations
 - Have deals with big datasets and effective batch size
+
+---
 
 ## When you want to use TPUs instead of CPUs with Vertex AI. Since you are not using Docker images or custom containers.
 
@@ -130,3 +148,35 @@ Note
 - Set parameterServerType
 
 workerType, parameterSererType, evaluatorType, workerCount, parameterServerCount and evaluatorCount for jobs use custom concontainer and for TensorFlow jobs
+
+---
+
+## When you are looking for UI tools that can help you work and solve all issues faster. And you have to follow the entire lifecycle: model development, design, and training, testing, deplloyment, and retraining. Following solutions are suitable.
+- TensorBoard
+  - TensorBoard is aimed at model creation and experimentation.
+    - Profiling
+    - Monitoring metrics, weights, biases
+    - Examine model graph
+    - Working with embeddings
+- Jupyter notebooks
+  - Jupyter notebooks are tool to develop, experiment, and deploy. you may have the latest data science and machine learning frameworks with them.
+- Kubeflow UI
+  - Kubeflow UIs is for ML pipelines and includes visual tools for
+    - Pipelines dashboards
+    - Hyperparameter tuning
+    - Artifact Store
+    - Jupyter notebooks
+
+- Note: there are not correct 
+  - KFServing
+    - KFServing is an open-source library for Kubernetes that enable serverless inferening. it works with TensorFlow, XGBoost, scikit-learn, PyTorch, and ONNX to solve issues linked to production model serving.
+  - Vertex AI
+    - Vertex AI is a suite of services that combines AutoML and AI Platform. you ncan use both AutoML and custom training in the same environment
+
+---
+
+## When you are looking for the most convenient way to import and manage this type of data. you need to deal with input data that is binary(images) and made by CSV files.
+
+- tf.TFRecordReader 
+  - `tf.TFRecordReader` is most suitable solution.
+  - TFRecord format is efficient for storing a sequence of binary and not-binary records using Protocol buffers for serialization of structured data.

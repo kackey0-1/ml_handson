@@ -7,6 +7,8 @@
 This document may give us more useful information
 https://developers.cyberagent.co.jp/blog/archives/1672/
 
+---
+
 ## Data Cleaning Service
 ### Dataprep
 Dataprep allows users to explore data visually by transforming the file into CSV, JSON, or in a graphical table format.
@@ -51,6 +53,8 @@ It has a visual interface that allows you to create codeless data pipelines as r
 ### Composer
 [//]: # (TODO Check Composer products in details)
 
+---
+
 ## Data Storage Service
 
 ### BigQuery
@@ -58,6 +62,8 @@ It has a visual interface that allows you to create codeless data pipelines as r
 - Allow us to do Model building, Training and Hyperparameter tuning but not Automatic deployment and serving
 
 ### BigTable
+
+---
 
 ## AI Products
 ### Kubeflow Pipeline
@@ -98,6 +104,9 @@ It's a ready-to-use service for all the requirements. Users don't need to create
 <img src="https://s3.amazonaws.com/media.whizlabs.com/learn/ml24.png">
 
 ### AutoML
+#### AutoML Tables
+AutoML tables is aimed to automatically build and deploy models on your data in the fastest way possible. It is integrated within BigQuery ML and is available i the unified Vertex AI.
+
 #### AutoML Vision
 AutoML Vision lets you train models to classify your images with your own characteristics and labels. 
 So you can tailor your work as you want.
@@ -111,4 +120,7 @@ Vision AI uses pre-trained models trained by Google. This is powerfull, but less
 ### Video AI
 Video AI manages videos, not images.
 It can extract metadata from any streaming video, get insights in a far shorter time, and let trigger events
+
+### TensorFlow Extended
+TensorFlow Extended is for deploying production ML pipelines, and it doesn't have any AutoML Services.
 
