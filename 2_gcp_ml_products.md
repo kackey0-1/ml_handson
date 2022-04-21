@@ -80,6 +80,28 @@ an open-source platform to create and deploy ML workflow based on docker contain
 - Manage prediction batch, online and monitoring
 - Manage models version, workflows and retraining
 - Manage the complete model maintenance cycle
+- Vertex Ai integrates the following elements. 
+  - Datasets: data, metadata and annotations, structured or unstructured. For all kinds of libraries.
+  - Training pipelines to build an ML model
+  - ML models, imported or created in the environment
+  - Endpoints for inference
+
+Datasets are suitable for all kinds of libraries. A data set is a collection of related, discrete items of related data that may be accessed individually or in combination or managed as a whole entity. A data set is organized into some type of data structure.
+
+<img src="https://s3.amazonaws.com/media.whizlabs.com/learn/ml2-4.png">
+
+#### Vertex Feature Store
+Vertex Feature Store is a service to orginize and store ML feature s through a central store. This allows you to share and optimize ML features important for the specific environment and to reuse at any time.
+
+All these translate into the greater speed of the creation of ML services. But these also allow minimizing problems such as processing skew, which occurs when the distribution of data in production is different from that of training, often due to errors in the organization of the features.
+
+#### Vertex Model Monitoring
+Vertext Model Monitoring is to monitor the quality of the forecasts continuously. since if input data to ML models may change over time.(this can be a serious problem, as performance will obviously degrade.)
+
+- Skew Detection
+  - for skew detection, it looks at and compares the feature's values distribution in the training data.
+- Drift Detection
+  - For drift detection, it looks at and compares the feature's values distribution in the production data.
 
 ### Document AI
 A complete service for the automatic understanding of documents and their management,

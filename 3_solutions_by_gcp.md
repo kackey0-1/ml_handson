@@ -180,3 +180,31 @@ workerType, parameterSererType, evaluatorType, workerCount, parameterServerCount
 - tf.TFRecordReader 
   - `tf.TFRecordReader` is most suitable solution.
   - TFRecord format is efficient for storing a sequence of binary and not-binary records using Protocol buffers for serialization of structured data.
+
+---
+
+## When you want to save the model.
+A checkpoint is an inermediate dump of a model's entire internal state(its weights, current learning rate, etc) so that the framework can resume the training from that very point.
+
+- Pytorch
+  - torch.save()
+- Keras
+  - callbacks.ModelCheckpoint (keras): intermediate dump
+- TensorFlow
+  - train.Checkpoints: intermediate dump
+
+<img src="https://s3.amazonaws.com/media.whizlabs.com/learn/ml2-5.png">
+
+
+## When you want to create an optimized input pipeline to increase the performance of training sessions, avoiding GPUs and TPUs as much as possible because they are expensive
+- Caching
+  - tf.data.Dataset.cache allows you to cache a dataset increasing performance
+- Prefetching
+  - tf.data.Dataset.Prefetch: while the execution of a training pass, the data for the next pass is read
+- Parallelizing data
+  - Parallelizing data transformation
+    - tf.data API offers the map function for tf.data.Dataset.map transformation. This transformation can be parallelized across multiple cores with the num_parallel_calls option.
+  - Sequential and parallel interleave
+    - tf.data.Dataset.interleave offers the possibility of interleaving and allowing multiple datasets to execute in parallel
+
+
