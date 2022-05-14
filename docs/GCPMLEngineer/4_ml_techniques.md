@@ -105,6 +105,8 @@ Ordinal Encoding simply creates a correspondence between each unique category wi
 One-Hot Encoding simply creates a sparse matrix with values that indicate the presence(or absence) of each possible value.
 <img src="https://s3.amazonaws.com/media.whizlabs.com/learn/36.png">
 
+One-Hot encoding is a method used in feature engineering for obtaining better regularization and indepnendence.
+
 ### Feature Crosses
 Feature Crosses creates a new feature created by joining or multiplying multiple variables to add further predictive capabilities, such as transforming the geographic location of properties into a region of interest.
 - this will add non-linearity

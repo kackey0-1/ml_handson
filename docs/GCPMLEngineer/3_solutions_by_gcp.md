@@ -264,6 +264,8 @@ Vertex Store is a service to organize and store ML features through a central st
 
 Note: Could Storage is not enough for identifing different features. more importantly it will not avoid feature definition overlapping.
 
+---
+
 ## When you would like engineer-to-engineer assistance from both Google Cloud and Google's TensorFlow teams. Which of the following services can be used ?
 
 ### TensorFlow Enterprise
@@ -283,7 +285,354 @@ It is ready for automatic provisioning and scaling with any kind of processor. i
 
 Kubeflow & TFX are open-source libraries with standard support from the community.
 
+## When you have to create a model for recognizing photographic images related to collaborators and consultants. You have do it quickliy, it has be an R-CNN model. you don't want to start from scrach.
+
+TensorFlow-Hub is ready to use repository of trained ML models. It is available for reusing advanced trained model with minimal code. The ML models are optimized for GCP.
+
+---
+
+## Which GCP products are most sutable for project that a small batch of data will be sent that will be collected and processed in order to provide customers with the management of their vehicle health and push notifications in case of important messages.
+
+- Pub/Sub
+  - to catch an event and push data to DataFlow process
+  - Pub/Sub is for technical data messages.
+- DataFlow
+  - to collect and process data
+  - DataFlow is for data management both in streaming and batch
+    - Serialize input data
+    - Preprocess and transform data
+    - Call the inference function
+    - Get the results and postprocess them
+- Firebase Messaging
+  - to send a message(Push notifications)
+
+Note: Dataproc is the managed Apache Hadoop environment for big data analysis usually for batch processing.
+
+## You need to approximately collect and transform data and then create and tune your models. These procedures will be inserted in an MLOps flow and therefore will have to be automated and be simple as possible. What are the methodologies / services recommended by Google.
+
+### DataFlow
+DataFlow is an optimal solution for compute-intensive preprocessing operations because it is fully managed autoscaling service for batch and streaming data processing
+
+### BigQuery
+BigQuery is a strategic tool for GCP. BigData at scale, machine learning, preprocessing with plain SQL are all important factors.
+
+### TensorFlow
+TensorFlow has many tools for data preprocessing and transformation operations. Main techniques are aimed to feature engineering(cross_column, embedding_column, bucketize) and data transformation(tf.Transformation library)
+
+![pic](https://s3.amazonaws.com/media.whizlabs.com/learn/2-23.png)
+
+Note: Dataprep is a tool for visual data cleaning and preparation. Cloud Fusion is for ETL with a GUI.
+
+## When you want to get help from GCP for hyperparameter tuning, what are the parameters that you must indicate ?
+With Vertex AI, It is possible to create a hyperparameter tuning job for LINEAR_REGRESSION and DNN.
+You can choose many parameters. But in the case of DNN, you have to use a hyperparameter named learning_rate.
+
+The ConditionalParameterSpec object lets you add hyperparameters to a trial when the value of its parent hyperparameter matches a condition that you specify(added automatically) and the number of hidden layers, that is num_hidden_layers.
+
+- paratemeterServerType
+- scale Tier
+
+are paramters for infrastructure set up for a training job.
+
+## When you to predict the demand of its customers both to increase business and improve logistics processes. What managed and fast-to-use GCP products can be used for these types of models?
+
+- AutoML ML
+- BigQuery ML
+
+We have in GCP the possibility to use a large number of models and platforms.
+But the fastest and most immediate modes are with AutoML and BigQuery ML
+
+Both support quick creation and fine-tuning of templates.
+
+Note: KubeFlow and TFX are open-source libraries that work with TensorFlow. So, they are not managed and so simple.
+
+Moreover, they can work in an environment outside GCP that is a big advantage, but it is not in our requirements.
+
+## When you want to get the most from ML services and the least costs, What are the best practices recommended by Google?
+
+- Notebooks as an ephemeral Instance
+  - Notebooks are used for a limited time, but they reserve VM and other resources. So you have to treat them as ephemeral instances, no t as long-living ones
+- Automatic shutdown routine
+  - an automatic shutdown routine can save your costs
+- Preemptible VMs
+  - Preemptible VMs are far cheaper than normal instances and are OK for long-running(batch) large experiments.
+  - GCP側の都合で停止される可能性がある
+  - 最長24時間で必ず停止される
+- GPU metrics reporting script
+  - this is important since GPU is expensive
+
+## When you have to prepare a demo. You are certain that they will ask you about the understanding of the classification and regression mechanism. You'd like to show them an interactive demo with some interference.
+
+What-If tool will help you.
+
+What-If Tool is an open-source tool that lets you visually understand classification and regression ML models.
+
+It lets you see data points distributions with different shapes and colors and interactively try new inferences.
+
+Moreover, it shows which features affect your model the most together with many other characteristics. (All without code)
+
+- Note: 
+  - Tensorboard provides visualization and tooling needed for experiments, not for explaining inference.
+  - Tableau and Looker are graphical tools for data reporting
+  - LIT(the Language Interpretability Tool) is for NLP models.
+    - Language Interpretability Tool is a visual, interactive model-understanding tool for ML modeels, focusing on NLP use-cases
+    - It is similar to WIT(What-If tool)
+
+## When you need to demonstrate DNN models.
+- Integrated Gradient
+  - Integrated Gradient is an explainability technique for deep neural networks that gives information about the model's prediction. Integrated Gradient works highlighting the feature importance.
+  - It computes the gradient of the model's prediction output regarding its input features without modification to original model.
+  - You can see that it tunes the inputs and computes attributions so that it can compute the feature importances for the input image
+  - You can use tf.GradientTape to compute the feature importances for the input image
+
+<img src="https://s3.amazonaws.com/media.whizlabs.com/learn/2-3.png">
+
+## When you have a view with many columns, and you want to make some simplifications for your work and avoid overfitting.
+- EXCEPT
+  - EXCEPT gives all rows or fields on the left side except the one coming from the right side of the query.
+
+```sql
+SELECT * EXCEPT(mylabel) myvalue AS label
+-- 
+SELECT * except(species)
+FROM `bigquery-public-data.ml_datasets.iris`;
+```
+
+- ROLLUP
+  - it is a group function for subtotals
+- UNNEST
+  - unnest gives the elements of a structured file
+- LAG
+  - LAG returns the field value on a preceding row
+
+## Which types of transformations are you not allowed in CSV file
+- Allowed
+  - Categorical
+  - Text
+  - Timestamp
+  - Number
+
+- Not Allowed
+  - Array
+
+With complex data like Arrays and Structs, transformations are available only by using BigQuery, which support them natively.
+
+All other kinds of data are also supported for CSV files, as stated in the referred documentation.
 
 
+## When you have to avoid multicollinearity and optimize categories. So you need to group some features together and create macro categories. In particular, you have to join country and language in one variable and divide data between 5 income classes. Which one of the following options can you use ?
 
+- FEATURE_CROSS
+  - A feature cross is a new feature that joins two or more input features together. (The term cross comes from cross product.) Usually, numeric new features are created by multiplying two or more than other features.
+- QUANTILE_BUCKETIZE
+  - QuUANTILE_BUCKETIZE groups a continuous numerical feature into categories with the bucket name as the value based on quantiles.
+
+Note:
+  - ARRAY_CONCAT 
+    - ARRAY_CONCAT joins one or more arrays (number or strings) into a single array.
+  - ST_AREA
+    - ST_AREA returns the number of square meters covered by a GEOGRAHY area
+
+
+## You team must create and modify code to directly access BigQuery data for building models in different environment. What are the tools you can use ?
+- tf.data.dataset
+  - tf.data.dataset reader for BigQuery is the way to connect directly to BigQuery from TensorFlow or Keras
+
+- BigQuery I/O Connector
+  - BigQuery I/O Connector is the way to connect directly to BigQuery from Dataflow
+
+- BigQuery Python client library
+  - BigQuery Python client library can be used in any other framework
+
+Note:
+  - BigQuery Omni
+    - BigQuery Omni is a multi-cloud analytics solution
+    - You can access from BigQuery data across Google Cloud, AWS, and Azure.
+    - BigQuery Omni lets you run BigQuery analytics on data stored in AWS S3 or Azure blob storage
+
+## Which other(Multiclass Logistic Regression model) types of models can you implement with AutoML ?
+AutoML on Vertex AI can let you build a code-free model. 
+You have to provide training data. 
+
+The types of models that AutoML on Vertex AI can build are created with image data, tabular data, text data and video data.
+- Image Data
+- Text Data
+- Video Data
+
+Note: 
+  - Cluster data
+    - Cluster Data is related to unsupervised learning, which is not supported by AutoML.
+
+## You have to decide the strategy for implementing an online forecasting model in production. You are concerned that the final system is not efficient and scalable enough. You are looking for the simplest and most managed GCP solution.
+
+- Vertex AI online prediction
+  - Vetex AI prediction service is fully managed and automatically scales machine learning models in the cloud
+  - The service supports both online prediction and batch prediction
+<img src="https://s3.amazonaws.com/media.whizlabs.com/learn/2-37.png">
+
+Note:
+  - GKE e TensorFlow and VMs and Autoscaling Groups with Application LB
+    - GKE and VMs are not managed service for online prediction.
+
+  - not Kubeflow(ETL and deploy feature)
+    - Because Kubeflow is not managed service.
+    - It is used in AI platforms and lets you deploy ML systems in various environment
+
+## When you want to maintain both the old and the new version at the same time. The new version should only serve a smaill portion of the traffic.
+
+- Deploy on the same endpont
+- Update the Traffic split percentage]
+  - Deploy your model to an existing endpoint
+  - Update the traffic split percentage in such a way that all of the percentages add up to 100%
+
+Note:
+  - Save the model in a Docker container image
+    - you don't need to create a docker conatainer image with AutoML
+  - Canary Deployment with Cloud Build is a procedure used in CI/CD pipelines. There is no need in such managed environment.
+
+## Which types of storage should you avoid in the managed environment of GCP ML, such as Vertex AI
+Google advises avoiding data storage for ML in block storage like persistent disk or NAS like FileStore. They are more difficult to manage than Cloud Storage or BigQuery.
+- FileStore
+- Block Storage
+
+## You want to leerage Explainable AI to understand which are the most essential features and how they influence the model. For what kind of model may you use Vertex Enplainable AI ?
+
+- AutoML tables
+- Image Classification
+- DNN(Deep Neural Network)
+
+Deep Learning is known to give little comprehension about how a model works in detail.
+
+Vertex Explainable AI helps to detect it, both for classification  and regression task. So these functions are useful for testing, tuning, finding biases and thus improving the process.
+
+You can get explanations from Vertex Explainable AI both for online and batch inference but only regarding these ML models
+- Structured data models (AutoML, classification and regression)
+- Custom-Trained models with tabular data and images
+
+In the Evaluate section, you can find these insights in Google Cloud Console(Feature importance graph).
+<img src="https://s3.amazonaws.com/media.whizlabs.com/learn/20.png">
+
+Note:
+  - Decision Tree Models
+    - Decision Tree models are explainable without any sophisticated tool for enlightenment
+
+## When you already use caching and prefetching. so now you want to use GPUs, but in a single machine, for cost reduction and experimentations.
+tf.distribute.Strategy is an API for training distribution among different processors and machines
+
+- tf.distribute.MirroredStrategy
+  - MirroredStrategy lets you use multiple GPUs in a single VM, with a replica for each CPU.
+
+<img scr="https://s3.amazonaws.com/media.whizlabs.com/learn/2-41.png">
+
+Note:
+  - tf.distribute.TPUStrategy
+    - TPUStrategy lets you use TPUs, not GPUs
+  - tf.distribute.MultiWorkerMirroredStrategy
+    - MultiWorkerMirroredStrategy is for multiple machines
+  - tf.distribute.OneDeviceStrategy
+    - OneDeviceStrategy is the default strategy for a single device, so a single virtual CPU
+
+## When you work with tensorflow in Vertex AI. You deploy a new model in the test env and detected some problems. And you want to get logs. What kind of logs do you need and how do you get them? 
+
+In Vertex AI, you may enable or avoid logs for prediction. When you want to chnage, you must undeploy and redeploy. There two types of logs.
+
+- Container Logging
+  - Container Logging, which logs data from the containers hosting your model; so these logs are essenial for problem solving and debugging
+- Access Logging
+  - Access logging, which logs accesses and latency informationd
+
+## When you avoid deploying the model in eager mode.
+When you develp and test a model, the eager mode is really useful because it lets you execute operations one by one and facilitate debugging.
+
+But when in production, it is better to use graphs, which are data structures with Tensors and integrated computations Python independent. In this way, they can be deployed on different devices(like mobiles) and are optimizable.
+
+To do that, you have to use tf.function decoration function for new tf.Graph creation.
+
+- Use graphs
+- Use tf.function decoration function
+- Create a new tf.Graph
+
+Using graphs instead of eager execution is more complex than that.
+
+## Checking and Updating models create additional difficulties. You are undecided whether to use Vertex Pipeline and Kubeflow Pipelines. You wonder if starting from Kubeflow, you can later switch to a more automated and managed system like Vertex AI.
+Vertex AI Pipelines is a managed service in GCP.
+Kubeflow Pipelines is an open-source tool based on Kubernetes and Tensorflow for any environment.
+
+Vertex AI support code written with Kubeflow Pipelines SDK v2 domain-specific language(DSL)
+
+- You may use Kubeflow pipelines written with DSL in Vertex AI
+- Kubeflow pipelines may work in any environment
+- Kubeflow pipelines may use Kubernetes persistent volume claims
+- Vertex Pipelines can use Cloud Storage FUSE
+
+Like any workflow in Kubernetes, access to persistent data is performed with Volumnes and Volume Claims.
+Vertex Pipelines can use Cloud Storage FUSE. so Vertex AI can leverage Cloud Storage buckets like file systems on Linux or macOS
+
+<img src="https://s3.amazonaws.com/media.whizlabs.com/learn/2-45.png">
+
+## When you want to manage CSV format data with Vertex AI
+Vertex AI manages CSV files automatically.
+But you need to have headers only with alphanumric characters and underscores with commas as delimiters.
+You can import multiple files, each one max 10GB
+
+- You have to setup an header and column names may have only alphanumeric character and underscore
+- Delimiter must be a comma
+
+## When you want to check the capabilities of this managed suite of Vertex AI.
+Vertex AI covers all the activities and functions listed
+- Training Pipelines(so MLOps)
+- Data Management(Datasets)
+- Custom Model and AutoML models management
+  - custom tooling and libraries deployment and monitoring
+
+<img src="https://s3.amazonaws.com/media.whizlabs.com/learn/Q-7.png">
+
+## Which of methods does Vertex AI leverage for feature attributions ?
+Deep Learning is known to give little comprehension about how a model works in detail.
+Vertex Explainable AI helps to detect it, both for classification and regression tasks.
+
+So, these functions are useful for testing, tuning, finding biases and thus improving the process.
+
+### Sampled Shapley
+Sampled Shapley uses scores for each feature and their permutations
+### Integrated Gradients
+Integrated Gradients computes the gradient of the features at different points, integrates them and computes the relative weights
+### XRAI
+XRAI is an optimization of the integrated gradients method
+
+Note:
+  - Maximum Likelihood
+    - Maximum Likelihood is a probabilistic method for determining the parameters of a statistical distribution
+
+## When you need to let others use your Vertex AI dataset in Cloud Storage for a different organization.
+You can export a Dataset. When you do that, no additional copies of data are generated.
+The result is only JSON files with all the useful information, including the Cloud Storage files URIs.
+
+but you have to grant access to these Cloud Storage files with a Service account or a signed URL, if to be used outside GCP.
+
+- Exporting metadata and annotations in a JSON file
+- Give access (Service account or signed URL) to the Cloud Storage file
+
+<img src="https://s3.amazonaws.com/media.whizlabs.com/learn/2-52.png">
+
+## When you have various fields that have no value or report NaN. What kind of procedure that modifies them at the time of acquisition?
+The most frequent methodologies have been listed.
+
+In the case of numerical values, substituting the mean generally does not distort the model(it depends on the underlying statistical distribution)
+In the case of categories, the most common method is to replace them with the more frequent values.
+
+There are often multiple categories in minimized, but the additional values of the current example are used.
+- Compute mean/median for numeric measures 
+- Replace categories with the most frequent one
+- Use another ML model for missing values guess
+
+## When you want to find a simple method to determine affinities between different products and categories to give sellers and applications a wider range of suitable offerings for customers. Which of the following will give good results even without a great amount of data.
+- Cosine Similarity
+  - In a recommendation system(like with the Netflix movies), it is important to discover similarities between products so that you may recommend a movie to another user because the different users like similar objects.
+  - Cosine Similarity is a method to do so.
+    - You take two products and their characteristics(all transformed in numbers) so you have two vector
+    - You may compute differences between vectors in the euclidean space
+      - Geometrically that means that they have different lengths and different angles.
+
+<img src="https://s3.amazonaws.com/media.whizlabs.com/learn/2-51.3.png">
 

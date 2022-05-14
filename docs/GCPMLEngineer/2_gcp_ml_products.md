@@ -20,7 +20,7 @@ Dataprep allows users to explore data visually by transforming the file into CSV
 
 ### Dataproc
 With the in-built monitoring system, you can transfer your cluster data to your applications. 
-You can get quick-reports from the system and also have the feature of storing data in Google’s BigQuery.
+You can get quick-reports from the system and also have the feature of storing data in Google’s BigQuery.(TensorFlow is out of box)
 - Provisioning: provisioning clusters is done manually
 - System Integration: Apache Spark and Hadoop(managed Hadoop service)
 - Ease of Use: simple, easy to use
@@ -50,8 +50,8 @@ It has a visual interface that allows you to create codeless data pipelines as r
 
 <img src="https://s3.amazonaws.com/media.whizlabs.com/learn/ml35.png">
 
-### Composer
-[//]: # (TODO Check Composer products in details)
+### Cloud Compose
+Cloud Compose is for workflow management, not for Data preparation
 
 ---
 
@@ -60,6 +60,27 @@ It has a visual interface that allows you to create codeless data pipelines as r
 ### BigQuery
 - Allow us to do Exploratory Data Analysis and Feature Selection
 - Allow us to do Model building, Training and Hyperparameter tuning but not Automatic deployment and serving
+
+#### BigQueryML
+Supported ML models by BigQueryML
+- Linear Regression
+- Binary Logistic Regression
+- Multiclass Logistic Regression
+- K-Means Clustering 
+- Matrix Factorization
+- Time Series
+- Boosted Tree
+- Deep Neural Network(DNN)
+- AutoML Tables
+- TensorFlow model importing
+- Autoencoder
+
+Note: ML models for non tabular data are not supported like images, voices, videos. such as CNN
+
+#### BigQueryML Open
+BigQueryML Open is related to Open Data.
+
+
 
 ### BigTable
 
@@ -136,12 +157,19 @@ So you can tailor your work as you want.
 #### AutoML Vision Edge
 AutoML Vision Edge lets you model deployed on edge devices such as mobile phone.
 
-### Vision AI
+#### AutoML Video Intelligence
+AutoML Video Intelligence is a service that allows you to customize the pre-trained Video intelligence GCP system according to your specific needs.
+
+In particular, AutoML Video Intelligence Object Tracking allows you to identify and locate particular entities of interest to you with your specific tags.
+
+### Cloud Vision AI
 Vision AI uses pre-trained models trained by Google. This is powerfull, but less customizable for customized classifications.
 
 ### Video AI
 Video AI manages videos, not images.
 It can extract metadata from any streaming video, get insights in a far shorter time, and let trigger events
+#### Cloud Video AI Intelligence AI
+Cloud Video Intelligence AI is a pre-configured and ready-to-use service, therefore not configurale for specific needs.
 
 ### TensorFlow Extended
 TensorFlow Extended is for deploying production ML pipelines, and it doesn't have any AutoML Services.

@@ -1,7 +1,42 @@
 # TensorFlow
 https://www.tensorflow.org/tfx/guide?hl=en
 
+## TensorFlow I/O
+TensorFlow I/O is a set of useful file formats, Dataset, streaming, and file system types management not available in TensorFlow's built-in support, like Parquet.
+
+Apache Parquet is an open-source column-oriented data storage format both in the Apache Hadoop environment but supported in many tools and used for data analysis.
+
+TensorFlow I/O is an extension package to Tensorflow, which encompasses io support for a collection of file systems and file formats that are not available in TensorFlow's built-in support. Integrations with many systems and cloud vendors include (but not limited to):
+- Prometheus
+- Apache Kafka
+- Apache Ignite
+- Google Cloud BigQuery
+- Google Cloud PubSub
+- AWS Kinesis
+- Microsoft Azure Storage
+- Alibaba Cloud OSS etc...
+
+## TensorBoard
+TensorFlow provides the visualization and tooling needed for machine learning experimentation.
+- Tracking and visualizing metrics such as loss and accuracy
+- Visualizing the model graph(ops and layers)
+- Viewing histograms of weights, biases, or other tensors as they change over time
+- Projecting embeddings to lower dimensional space
+- Displaying images, text, and audio data
+- Profiting TensorFlow programs
+- ...etc
+
+## TenforFlow Probability
+TensorFlow Probability is a Python library for statistical analysis and probability, which can be processed on TPU and GPU.
+- Main features of TensorFlow Probability
+  - Probability distributions and differetiable and injective(one to one) functions
+  - Tools for deep probabilistic models building
+  - Inference and Simulation methods support: Markov chain, Monte Carlo
+  - Optimizers such as Nelder-Mead, BFGS, and SGLD
+
 # TFX Libraries (TensorFlow Extended Libraries)
+TensorFlow Extended(TFX) is a platform that allows you to create scalable production ML pipelines for TensorFlow projects.
+
 ## TensorFlow Data Validation(TFDV)
 https://github.com/tensorflow/data-validation
 - Training-Serving Skew Detection
@@ -41,8 +76,6 @@ https://github.com/tensorflow/serving
 - TensorFlow Serving is a flexible, high-performance serving system for machine learning models, designed for production environments.
 - TensorFlow Serving makes it easy to deploy new algorithms and experiments, while keeping the same server architecture and APIs.
 - TensorFlow Serving provides out-of-box integration with TensorFlow models, but can be easily extended to serve other types of models and data.
-
 ## TensorFlow Lite
 ## TensorFlow JS
-
 
