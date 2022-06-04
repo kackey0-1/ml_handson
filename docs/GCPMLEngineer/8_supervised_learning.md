@@ -1,16 +1,3 @@
-# Model index
-## Unsupervised Learning
-### K-Means
-### MeanShift
-### Gaussian Mixture Model(=GMM)
-### Variational Bayesian Gaussian Mixture(= VBGM)
-
-### Hierarchical Clustering
-Hierarchical Clustering creates clusters using a hierarchical tree. 
-It may be effective on recommendation system but it is heavy with a lot of data.
-
----
-
 ## Supervised Learning
 ### Linear Model
 - Simple Linear Model
@@ -20,20 +7,41 @@ It may be effective on recommendation system but it is heavy with a lot of data.
   - [//]: # (TODO)
 - Logistic Regression
   - Binary Logistic Regression
+    - Logistic Regression, you have to train the model and figure out the parameters of specific function that best fit the data before the inference.
   - Multiclass Logistic Regression
-
-### KNN(K-Nearest Neighbor)
-- supervised ML algorithm for classification
 
 ### SVM(Support Vector Machine)
 - supervised ML algorithm for classification
   1. K-NN distances are computed 
   2. These distances are not between data points, but with hyper-plane, that better divides different classifications
 
-### XGBoost
-  - Optimized Gradient Boosting algorithm through parallel processing tree-pruning, handling missing values and regularization to avoid over-fitting / bias
-  - Evolution of version of Decision Trees. this has been widely used in fraud detection field(unsupervised learning). and has had many positive results.
+### Lazy Learning (Oposite of Eager Learning)
+Lazy Learning means that the algorithm only stores the data of the training part without learning a function. The stored data will then be used for the evaluation of new query point.
+
+#### K-Nearest Neighbors
+KNN is one of Lazy Learing algorithm for both classification and regression problems.
+You begin with data that is already classified. A new example will be set by looking at the nearest classified points. Number k is the most important hyperparameter.
+
+#### Naive Bayes
+Naive Bayes is one of Lazy Learning algorithm for classification problem.
+The features have to be independent. It requires a small amount of training data.
+
+#### KNN(K-Nearest Neighbors)
+- supervised ML algorithm for classification and regression
+
+
+### Ensumble Learning 
+Ensemble Learning is performed by multiple learning algorithm working together for higher predictive performance.
+
+#### XGBoost
+- Optimized Gradient Boosting algorithm through parallel processing tree-pruning, handling missing values and regularization to avoid over-fitting / bias
+- Evolution of version of Decision Trees. this has been widely used in fraud detection field(unsupervised learning). and has had many positive results.
+
+
+
 ### Deep Learning
+#### Simple Nueral Network
+Neural Network, you have to train the model and figure out the parameters of a specific function that best fit the data before the inference.
 
 #### Convolutional Neural Networks
 - Used for image classification
@@ -76,30 +84,3 @@ Collaborative Filtering works the idea that a user may like same things of the p
 <img src="https://s3.amazonaws.com/media.whizlabs.com/learn/ml33.png">
 
 ---
-
-## Reinforcement Learning(RL)
-RL provides a software agent that evaluates possible solutions through a progressive reward in repeated attempts.
-it does not require labels. But it requires a lot of data and several trial and the possibility to evaluate the validity of each attempt.
-- Q-Learning
-- deep Q-network(DQN)
-- deep deterministic policy gradient
-
-[//]: # (TODO summarize other models evaluation)
-
----
-
-# ML Evaluation 
-- Classification model
-  - Binary Classification
-    - When there is an imbalance between true and false ratio, it is necessary to modify the classification threshold
-    - https://developers.google.com/machine-learning/crash-course/classification/precision-and-recall
-      - Precision: Rate of correct positive identification
-      - Recall: Rate of real positive correctly identified
-
-## Cross-Validation
-Cross-Validation involves running out modeling process on various subsets of data.
-Obviously, Cross-Validation creates a computational load. Therefore, it can be prohibitive in very large datasets, but it is great when you have smalll datasets
-
-<img scr="https://s3.amazonaws.com/media.whizlabs.com/learn/38.png">
-
-
