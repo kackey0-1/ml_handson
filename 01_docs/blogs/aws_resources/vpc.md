@@ -127,3 +127,4 @@ the connection gets timed out. What could be the reason ?
 - Used to establish a dedicated connection from an on-premises network to one or more VPCs in the same region
 - Used to establish an end-to-end secure IPSec connection
 - Using private VIF on AWS Direct Connect, you can establish private connectivity between AWS and your data center, office, or collocation environment
+
