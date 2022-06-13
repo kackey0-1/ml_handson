@@ -1,4 +1,4 @@
-~~# API Gateway 
+# [For AWS Certified Solution Architect Associate] Understanding API Gateway
 
 ## About Feature
 - API Gateway can integrate with any HTTP-based endpoints available over the internet(or even in private VPC)

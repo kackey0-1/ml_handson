@@ -1,4 +1,4 @@
-# Cost Management
+# [For AWS Certified Solution Architect Associate] Understanding Cost Management
 
 ## Computing
 - AWS Savings Plan

@@ -1,4 +1,4 @@
-# [Software Architecture Spec] Layered Architecture
+# [Understanding Software Architecture Spec] Layered Architecture
 
 ## Layered Architecture Topology
 

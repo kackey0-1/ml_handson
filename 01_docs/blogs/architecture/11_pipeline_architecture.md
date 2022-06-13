@@ -1,4 +1,4 @@
-# [Software Architecture Spec] Pipeline Architecture
+# [Understanding Software Architecture Spec] Pipeline Architecture
 
 ## Pipeline Architecture Topology
 The basic principle behind Unix terminal shell languages such as Bash and Zsh is familiarity with this architecture.
