@@ -1,10 +1,11 @@
-# EFS (Elastic File Service)
-- Typical EFS Use Case
+# [For AWS Certified Solution Architect Associate] Understanding EFS (Elastic File Service)
+
+## Typical EFS Use Case
   - Data is stored redundantly in a single AZ
   - Up to thousands of Amazon EC2 instances from multiple AZs, can connect concurrently to a file system
   - Big data and analytics, media processing workflows, content management, web serving, and home directories that do not require Multi-AZ resilience
 
-- Modes
+## Modes
   - Performance Mode
     - Max I/O Performance Mode
       - Max I/O mode supports 500,000+ IOPS and has higher per-operation latencies when compared to General Purpose mode
@@ -28,7 +29,7 @@
       - For applications that have a relatively constant throughput, we recommend Provisioned Throughput mode
       - <!-- TODO https://docs.aws.amazon.com/efs/latest/ug/efs-ug.pdf -->
 
-- Protocol for to enable SSH access between EC2 and EFS
+## Protocol for to enable SSH access between EC2 and EFS
   1. Open port 22(SSH) on EC2 security group
   2. Open port 2049(NFS(which is not secured by default)) on EFS security group
 
@@ -41,10 +42,9 @@
     - mount helper uses TLS version 1.2 to communicate with the file system
     ![](https://s3.amazonaws.com/media.whizlabs.com/learn/CSAA-efs-6.PNG)
 
-- Work with VPC Peering
+## Work with VPC Peering
   1. Establish VPC connection between VPCs
   2. Use the instances that are created in the new VPC to access the already existing EFS with mount targets
-
 
 Note: 
 IOPS: Input/Output Per Second
