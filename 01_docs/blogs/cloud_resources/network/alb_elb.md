@@ -49,6 +49,22 @@ EC2 Auto Scaling determines the health status of an instance using one or more o
 Health Check Grace Period
 Metric types for Auto Scaling Group Policy
 
+#### Termination flow
+1. Scale In
+2. Are these instances in multiple availability zones ?
+   - When Yes, Select the availability zones with the most instances
+   - When No, Got to Step 3
+3. Select the instances with the oldest launch configuration
+4. Are there multiple instances using the oldest launch configuration ?
+   - When No, **Terminate instance**
+   - When Yes, Go to Step 5 
+5. Select the instances closest to the next billing hour
+6. Are there multiple instances closest to the next billing hour ?
+   - When No, **Terminate instance**
+   - When Yes, Go to Step 7
+7. Select an instance at random 
+   - Terminate instance
+
 ### [Cross-zone Load Balancing](https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/how-elastic-load-balancing-works.html#availability-zones)
 The nodes for your load balancer distribute requests from clients to registered targets
 When cross-zone load balancing is enabled, each load balancer node distributes traffic across the registered targets in all enabled Availability Zones
