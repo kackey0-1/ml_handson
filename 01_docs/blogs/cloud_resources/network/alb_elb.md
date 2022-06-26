@@ -15,6 +15,8 @@ When you create a launch configuration, you specify information for the instance
 An Auto Scaling group contains a collection of Amazon EC2 instances that are treated as a logical grouping for the purposes of automatic scaling and management
 Before getting started, take the time to review your application thoroughly as it runs in the AWS Cloud
 
+AWS recommends the use of Launch Templates while configuring your ASG(Launch templates can be updated to create new versions)
+
 - How long it takes to launch and configure a server
 - What metrics have the most relevance to your application's performance
 - How many Availability Zones you want the Auto Scaling group to span
