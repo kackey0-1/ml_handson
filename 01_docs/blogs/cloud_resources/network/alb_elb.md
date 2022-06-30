@@ -15,6 +15,8 @@ When you create a launch configuration, you specify information for the instance
 An Auto Scaling group contains a collection of Amazon EC2 instances that are treated as a logical grouping for the purposes of automatic scaling and management
 Before getting started, take the time to review your application thoroughly as it runs in the AWS Cloud
 
+AWS recommends the use of Launch Templates while configuring your ASG(Launch templates can be updated to create new versions)
+
 - How long it takes to launch and configure a server
 - What metrics have the most relevance to your application's performance
 - How many Availability Zones you want the Auto Scaling group to span
@@ -48,6 +50,22 @@ EC2 Auto Scaling determines the health status of an instance using one or more o
 
 Health Check Grace Period
 Metric types for Auto Scaling Group Policy
+
+#### Termination flow
+1. Scale In
+2. Are these instances in multiple availability zones ?
+   - When Yes, Select the availability zones with the most instances
+   - When No, Got to Step 3
+3. Select the instances with the oldest launch configuration
+4. Are there multiple instances using the oldest launch configuration ?
+   - When No, **Terminate instance**
+   - When Yes, Go to Step 5 
+5. Select the instances closest to the next billing hour
+6. Are there multiple instances closest to the next billing hour ?
+   - When No, **Terminate instance**
+   - When Yes, Go to Step 7
+7. Select an instance at random 
+   - Terminate instance
 
 ### [Cross-zone Load Balancing](https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/how-elastic-load-balancing-works.html#availability-zones)
 The nodes for your load balancer distribute requests from clients to registered targets

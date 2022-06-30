@@ -94,6 +94,8 @@ Available Operation on an EBS snapshot
 - Creating EBS volume from snapshot
 - Sharing a snapshot with another AWS account
 
+Note: you cannot share a snapshot with another AWS account
+
 ### Snapshot Lifecycle
 You can use Amazon Data Lifecycle Manager(Amazon DLM) to automate the creation, retention, and deletion of snapshots to back up EBS volume
 
@@ -106,3 +108,4 @@ You can use Amazon Data Lifecycle Manager(Amazon DLM) to automate the creation, 
 - If the source snapshot is encrypted, or if the account is enabled for encryption by default, then the snapshot copy is automatically encrypted
 - Without enabling encryption by default, a volume restored from an unencrypted snapshot is unencrypted by default
 
+Note: Encrypted EBS volumes are supported on all current generation instance types

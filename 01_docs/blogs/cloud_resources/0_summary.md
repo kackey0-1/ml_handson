@@ -1,10 +1,11 @@
 # [For Solution Architect Associate] Understanding AWS Services
 
+## Cost Management
 - [[For AWS Certified Solution Architect Associate] Understanding Cost Management]()
 
 ## Network
 - [[For AWS Certified Solution Architect Associate] Understanding Route53]()
-- [[For AWS Certified Solution Architect Associate] Understanding VPC]()
+- [[For AWS Certified Solution Architect Associate] Understanding VPC](https://hypo-driven.com/132)
 - [[For AWS Certified Solution Architect Associate] Understanding API Gateway]()
 - [[For AWS Certified Solution Architect Associate] Understanding Application/Elastic Load Balancer]()
 
