@@ -1,0 +1,7 @@
+.idea
+__pycache__
+
+*.pkl
+*.gz
+*.pyc
+.DS_Store
