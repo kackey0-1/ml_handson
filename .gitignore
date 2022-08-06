@@ -5,3 +5,4 @@ __pycache__
 *.gz
 *.pyc
 .DS_Store
+.ipynb_checkpoints
