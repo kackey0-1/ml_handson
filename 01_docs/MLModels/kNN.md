@@ -6,7 +6,8 @@
 ### STEP3
 ### Finally
 
-<!-- # Hyperparamters
+<!-- 
+# Hyperparamters
 ## learning_rate
 ## max_depth
 ## subsample
@@ -15,7 +16,8 @@
 ## objective
 ## gamma
 ## alpha
-## lambda -->
+## lambda
+-->
 
 # サンプルコード
 

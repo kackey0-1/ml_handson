@@ -1,1 +1,3 @@
 jupyterlab
+pandas-datareader
+scikit-learn
