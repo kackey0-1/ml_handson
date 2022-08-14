@@ -75,7 +75,7 @@ Supported ML models by BigQueryML
 - TensorFlow model importing
 - Autoencoder
 
-Note: ML models for non tabular data are not supported like images, voices, videos. such as CNN
+Note: ML models for non-tabular data are not supported like images, voices, videos. such as CNN
 
 #### BigQueryML Open
 BigQueryML Open is related to Open Data.
