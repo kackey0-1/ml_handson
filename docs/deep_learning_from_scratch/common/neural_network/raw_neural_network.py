@@ -1,5 +1,5 @@
 import numpy as np
-from deep_learning_from_scratch.common.activation.activation_functions import sigmoid, identity_function
+from docs.deep_learning_from_scratch.common.activation.activation_functions import sigmoid, identity_function
 
 
 def init_network():

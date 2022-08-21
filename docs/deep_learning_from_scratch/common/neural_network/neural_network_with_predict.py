@@ -1,7 +1,7 @@
 import numpy as np
 import pickle
-from deep_learning_from_scratch.dataset.mnist import load_mnist
-from deep_learning_from_scratch.common.activation.activation_functions import sigmoid, softmax
+from docs.deep_learning_from_scratch.dataset.mnist import load_mnist
+from docs.deep_learning_from_scratch.common.activation.activation_functions import sigmoid, softmax
 
 
 def get_data():
