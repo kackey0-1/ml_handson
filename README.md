@@ -4,5 +4,6 @@
 [Generate Equation here](https://latex.codecogs.com/)
 
 ```
-miyadaiku-build . --output .
+miyadaiku-start
+miyadaiku-build .
 ```
