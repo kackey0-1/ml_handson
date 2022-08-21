@@ -1,7 +1,5 @@
-import sys
-import os
 import numpy as np
-from deep_learning_from_scratch.dataset.mnist import load_mnist
+from docs.deep_learning_from_scratch.dataset.mnist import load_mnist
 from PIL import Image
 
 
