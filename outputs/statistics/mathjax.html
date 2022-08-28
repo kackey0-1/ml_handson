@@ -133,7 +133,7 @@ MathJax.Hub.Config({
           <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 class="md_header_block" id="MathJax--%E3%83%A1%E3%83%A2">MathJax  メモ<a class="anchor-link" href="#MathJax--%E3%83%A1%E3%83%A2">¶</a></h1>
+<h1 class="md_header_block" id="MathJax--%E3%83%A1%E3%83%A2">MathJax  メモ<a class="anchor-link" href="#MathJax--%E3%83%A1%E3%83%A2">¶</a></h1><p><a href="https://cns-guide.sfc.keio.ac.jp/2001/11/4/1.html">https://cns-guide.sfc.keio.ac.jp/2001/11/4/1.html</a></p>
 </div>
 </div>
 </div>
@@ -144,28 +144,29 @@ MathJax.Hub.Config({
 <thead><tr>
 <th>記号</th>
 <th>Mathjax</th>
+<th>Display</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>fraction</td>
 <td><code>$$ \frac{1}{2} $$</code></td>
+<td>$$ \frac{1}{2} $$</td>
 </tr>
 <tr>
 <td>root</td>
 <td><code>$$ 3\sqrt{2} $$</code></td>
+<td>$$ 3\sqrt{2} $$</td>
 </tr>
 <tr>
-<td>Permutation</td>
-<td><code>$$ {}_n \mathrm{ C }_k $$</code></td>
+<td>function</td>
+<td><code>$$  f(x_{i}) $$</code></td>
+<td>$$  f(x_{i}) $$</td>
 </tr>
 <tr>
-<td>Combination</td>
-<td><code>$$ {}_n \mathrm{ P }_k $$</code></td>
-</tr>
-<tr>
-<td>sum</td>
-<td><code>$$ \sum_{i=0}^n x_i $$</code></td>
+<td>exp</td>
+<td><code>$$\exp$$</code></td>
+<td>$$\exp$$</td>
 </tr>
 </tbody>
 </table>
@@ -175,7 +176,46 @@ MathJax.Hub.Config({
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-$$ \frac{1}{2} $$$$ 3\sqrt{2} $$$$ {}_n \mathrm{ C }_k $$$$ {}_n \mathrm{ P }_k $$$$ \sum_{i=0}^n x_i$$
+<table>
+<thead><tr>
+<th>記号</th>
+<th>Mathjax</th>
+<th>Display</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Permutation</td>
+<td><code>$$ {}_n \mathrm{ C }_k $$</code></td>
+<td>$$ {}_n \mathrm{ C }_k $$</td>
+</tr>
+<tr>
+<td>Combination</td>
+<td><code>$$ {}_n \mathrm{ P }_k $$</code></td>
+<td>$$ {}_n \mathrm{ P }_k $$</td>
+</tr>
+<tr>
+<td>sum</td>
+<td><code>$$ \sum_{i=0}^n x_i $$</code></td>
+<td>$$ \sum_{i=0}^n x_i $$</td>
+</tr>
+<tr>
+<td>limit</td>
+<td><code>$$ \lim_{n \to \infty}  $$</code></td>
+<td>$$ \lim_{n \to \infty}  $$</td>
+</tr>
+<tr>
+<td>delta</td>
+<td><code>$$ \Delta x $$</code></td>
+<td>$$ \Delta x $$</td>
+</tr>
+<tr>
+<td>integral</td>
+<td><code>$$ \int^{b}_{a} $$</code></td>
+<td>$$ \int^{b}_{a} $$</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
@@ -186,30 +226,27 @@ $$ \frac{1}{2} $$$$ 3\sqrt{2} $$$$ {}_n \mathrm{ C }_k $$$$ {}_n \mathrm{ P }_k 
 <thead><tr>
 <th>記号</th>
 <th>Mathjax</th>
+<th>Display</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>µ</td>
 <td><code>$$ \mu $$</code></td>
+<td>$$ \mu $$</td>
 </tr>
 <tr>
 <td>𝜎</td>
 <td><code>$$ \sigma $$</code></td>
+<td>$$ \sigma $$</td>
 </tr>
 <tr>
 <td>π</td>
 <td><code>$$ \pi $$</code></td>
+<td>$$ \pi $$</td>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-$$ \mu $$$$ \sigma $$$$ \pi $$
 </div>
 </div>
 </div>
@@ -220,26 +257,22 @@ $$ \mu $$$$ \sigma $$$$ \pi $$
 <thead><tr>
 <th>分布</th>
 <th>Mathjax</th>
+<th>Display</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>二項分布</td>
 <td><code>$$ \binom{n}{p} $$</code></td>
+<td>$$ \binom{n}{p} $$</td>
 </tr>
 <tr>
 <td>正規分布</td>
 <td><code>$$ \mathcal{N}(\mu,\,\sigma^{2}) $$</code></td>
+<td>$$ \mathcal{N}(\mu,\,\sigma^{2}) $$</td>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-$$ \binom{n}{p} $$$$  \mathcal{N}(\mu,\,\sigma^{2})$$
 </div>
 </div>
 </div>
@@ -253,15 +286,26 @@ $$ \binom{n}{p} $$$$  \mathcal{N}(\mu,\,\sigma^{2})$$
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-$$ 
-    \mathcal{N}(\mu,\,\sigma^{2}) = \frac{1}{\sqrt{2\pi\sigma^2}}\exp^\frac{(x-\mu)^2}{2\sigma^2}
-$$
+<table>
+<thead><tr>
+<th>分布</th>
+<th>Mathjax</th>
+<th>Display</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>二項分布</td>
+<td><code>$$ P(x) = \binom{n}{k}p^k(1-p)^{n-k}  $$</code></td>
+<td>$$ P(x) = \binom{n}{k}p^k(1-p)^{n-k}  $$</td>
+</tr>
+<tr>
+<td>正規分布</td>
+<td><code>$$ \mathcal{N}(\mu,\,\sigma^{2}) = \frac{1}{\sqrt{2\pi\sigma^2}}\exp^\frac{(x-\mu)^2}{2\sigma^2} $$</code></td>
+<td>$$ \mathcal{N}(\mu,\,\sigma^{2}) = \frac{1}{\sqrt{2\pi\sigma^2}}\exp^\frac{(x-\mu)^2}{2\sigma^2} $$</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
