@@ -7,3 +7,4 @@ seaborn~=0.11.2
 matplotlib~=3.5.2
 miyadaiku
 miyadaiku_theme_newblog
+jupyter_contrib_nbextensions
