@@ -304,6 +304,58 @@ $$$$
     
 
   
+
+    
+    <div class="articlebox" onclick="
+        (function f() {
+            window.location = 'statistics/statistical_tests.html';
+            window.event.preventDefault();
+         })()">
+      <a class="articlebox_ref" href="statistics/statistical_tests.html">
+        <a></a>
+        <div class="article_summary">
+          
+          <div class='article_summary_body'><div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [1]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 class="md_header_block" id="T%E6%A4%9C%E5%AE%9A">T検定<a class="anchor-link" href="#T%E6%A4%9C%E5%AE%9A">¶</a></h1>$$ t　= \frac{\bar{x}-\mu}{\frac{u}{\sqrt{n}}} $$<ul>
+<li>\bar{x}: 標本平均</li>
+<li>\mu: 母平均</li>
+<li>u**2: 不偏分散</li>
+<li>n: サンプル数</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [2]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="n">kitaichi</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'E(x) = </span><span class="si">{</span><span class="n">kitaichi</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'E(x) = </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">me</span></pre></div></div></div></div></div></div>
+        </div>
+      </a>
+    </div>
+    
+
+  
   </div>
 
 </div>
