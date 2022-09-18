@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+<head>
+   
+  
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>T検定 - Hypo Driven</title>
+    
+    
+
+  
+
+
+<!-- include docutils5 css -->
+<link rel="stylesheet" href="../static/docutils_html5/minimal.css">
+  <link rel="stylesheet" href="../static/docutils_html5/plain.css">
+
+<!-- include pygments css -->
+<link rel="stylesheet" href="../static/pygments/default.css">
+
+<!-- include boolstrap4 -->
+<link rel="stylesheet" href="../static/bootstrap4/bootstrap.min.css">
+
+<!-- include jquery.js -->
+<script src="../static/jquery/jquery.min.js"></script>
+
+<!-- include popper.js -->
+<script src="../static/popper.js/popper.min.js"></script>
+
+<!-- include boolstrap4 js -->
+<script src="../static/bootstrap4/bootstrap.min.js"></script>
+
+<!-- include font awesome -->
+<script defer src="../static/fontawesome/js/all.min.js"></script>
+  <script defer src="../static/fontawesome/js/v4-shims.min.js"></script>
+
+<!-- include ipynb minimum style -->
+<link rel="stylesheet" href="../static/ipynb/styles/min_ipynb.css">
+
+<link rel="stylesheet" href="../static/css/sample_index_pagenation.css">
+<link href="../static/newblog/ipynb_styles.css" rel="stylesheet">
+
+<!-- Loading mathjax macro -->
+<!-- Load mathjax -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_HTML"></script>
+<!-- MathJax configuration -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true,
+        processEnvironments: true
+    },
+    // Center justify equations in code and markdown cells. Elsewhere
+    // we use CSS to left justify single line equations in code cells.
+    displayAlign: 'center',
+    "HTML-CSS": {
+        styles: {'.MathJax_Display': {"margin": 0}},
+        linebreaks: { automatic: true }
+    }
+});
+</script>
+
+<link rel="stylesheet" href="../static/newblog/main.css">
+
+
+
+<link href="http://localhost:8888/all.atom.xml" type="application/atom+xml" rel="alternate" title="Hypo Driven Atom Feed" />
+<link href="http://localhost:8888/channews.rdf" type="application/rss+xml" rel="alternate" title="Hypo Driven RSS Feed" />
+
+<meta property="og:url" content="http://localhost:8888/statistics/statistical_tests.html" />
+<meta property="og:locale" content="ja-JP" />
+<meta property="og:type" content="article" />
+
+<meta property="og:title" content="T検定 - Hypo Driven" />
+
+<meta name="description" content="default page desctiption here"/>
+<meta property="og:description" content="default page desctiption here" />
+
+
+
+
+
+</head>
+
+<body>
+   
+<div>
+
+
+<div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="../index.html"
+      >
+      
+      Hypo Driven </a
+    >
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" href="../about.html">このサイトについて</a>
+      </div>
+    </div>
+  </nav>
+</div>
+
+ 
+
+
+
+<div class="container article_container">
+  <div class="row">
+    <div class="col-md-9">
+
+      
+      <div class="article">
+        
+
+        <div class="article_body">
+          <div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [1]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 class="md_header_block" id="T%E6%A4%9C%E5%AE%9A">T検定<a class="anchor-link" href="#T%E6%A4%9C%E5%AE%9A">¶</a></h1>$$ t　= \frac{\bar{x}-\mu}{\frac{u}{\sqrt{n}}} $$<ul>
+<li>\bar{x}: 標本平均</li>
+<li>\mu: 母平均</li>
+<li>u**2: 不偏分散</li>
+<li>n: サンプル数</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [2]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="n">kitaichi</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'E(x) = </span><span class="si">{</span><span class="n">kitaichi</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'E(x) = </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+
+<span class="n">hyojunGosa</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'V(x) = </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'標準誤差: </span><span class="si">{</span><span class="n">hyojunGosa</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+
+<span class="n">t_value</span> <span class="o">=</span> <span class="p">(</span><span class="n">kitaichi</span> <span class="o">-</span> <span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">hyojunGosa</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'t_value = </span><span class="si">{</span><span class="n">t_value</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+
+<span class="c1"># t_検定</span>
+<span class="c1"># t_value =&gt; statistic=2.5861309700971096</span>
+<span class="c1"># p_value =&gt; pvalue=0.02939946072683463</span>
+<span class="n">stats</span><span class="o">.</span><span class="n">ttest_1samp</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">popmean</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>E(x) = 2.7
+E(x) = 2.7
+V(x) = 3.3015148038438356
+標準誤差: 1.0440306508910548
+t_value = 2.5861309700971096
+</pre>
+</div>
+</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[2]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>Ttest_1sampResult(statistic=2.5861309700971096, pvalue=0.02939946072683463)</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 class="md_header_block" id="ANOVA-(Analysis-Of-Variance)">ANOVA (Analysis Of Variance)<a class="anchor-link" href="#ANOVA-(Analysis-Of-Variance)">¶</a></h1><p>分散分析は、「選択肢を変えることによって、平均値(期待値)が変化するか」を検定したい時に利用する。</p>
+$$ F比　= \frac{効果の大きさ}{誤差の大きさ} = \frac{効果の分散の大きさ}{誤差の分散の大きさ} $$<p>例: F比を確認することにより、薬による影響が有意になるかを検証する</p>
+<ul>
+<li>Sample Code
+<a href="https://www.reneshbedre.com/blog/anova.html">https://www.reneshbedre.com/blog/anova.html</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [3]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'length'</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span>
+    <span class="s1">'medicine'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'A'</span><span class="p">,</span> <span class="s1">'A'</span><span class="p">,</span> <span class="s1">'B'</span><span class="p">,</span> <span class="s1">'B'</span><span class="p">,</span> <span class="s1">'C'</span><span class="p">,</span> <span class="s1">'C'</span><span class="p">]</span>
+<span class="p">}</span>
+<span class="n">medicine_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'#####################################'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'mean: </span><span class="si">{}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">medicine_df</span><span class="p">[</span><span class="s1">'length'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'#####################################'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'mean for each medicine'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">medicine_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'medicine'</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'#####################################'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>#####################################
+mean: 7.0
+#####################################
+mean for each medicine
+          length
+medicine        
+A            3.0
+B           11.0
+C            7.0
+#####################################
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [4]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="n">fvalue</span><span class="p">,</span> <span class="n">pvalue</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">f_oneway</span><span class="p">(</span>
+    <span class="n">medicine_df</span><span class="p">[</span><span class="n">medicine_df</span><span class="p">[</span><span class="s1">'medicine'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'A'</span><span class="p">][</span><span class="s1">'length'</span><span class="p">],</span>
+    <span class="n">medicine_df</span><span class="p">[</span><span class="n">medicine_df</span><span class="p">[</span><span class="s1">'medicine'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'B'</span><span class="p">][</span><span class="s1">'length'</span><span class="p">],</span>
+    <span class="n">medicine_df</span><span class="p">[</span><span class="n">medicine_df</span><span class="p">[</span><span class="s1">'medicine'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'C'</span><span class="p">][</span><span class="s1">'length'</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'f-value: </span><span class="si">{}</span><span class="s1">, p-value: </span><span class="si">{}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fvalue</span><span class="p">,</span> <span class="n">pvalue</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>f-value: 16.0, p-value: 0.025094573304390855
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [80]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.formula.api</span> <span class="kn">import</span> <span class="n">ols</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">ols</span><span class="p">(</span><span class="s1">'length ~ medicine'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">medicine_df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="c1"># anova_table = sm.stats.anova_lm(model, typ=2)</span>
+<span class="n">anova_table</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">anova_lm</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">typ</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># sum sq: 偏差平方和</span>
+<span class="c1"># df: 自由度</span>
+<span class="c1"># F: f-value</span>
+<span class="c1"># PR(&gt;F): p-value</span>
+<span class="c1"># Residual: 残差</span>
+<span class="n">anova_table</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[80]:</div>
+<div class="output_html rendered_html output_subarea output_execute_result"><div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type &#123;
+        vertical-align: middle;
+    &#125;
+
+    .dataframe tbody tr th &#123;
+        vertical-align: top;
+    &#125;
+
+    .dataframe thead th &#123;
+        text-align: right;
+    &#125;
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>df</th>
+<th>sum_sq</th>
+<th>mean_sq</th>
+<th>F</th>
+<th>PR(&gt;F)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>medicine</th>
+<td>2.0</td>
+<td>64.0</td>
+<td>32.0</td>
+<td>16.0</td>
+<td>0.025095</td>
+</tr>
+<tr>
+<th>Residual</th>
+<td>3.0</td>
+<td>6.0</td>
+<td>2.0</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 class="md_header_block" id="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90%E3%81%A8%E3%83%A2%E3%83%87%E3%83%AB%E9%81%B8%E6%8A%9E">分散分析とモデル選択<a class="anchor-link" href="#%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90%E3%81%A8%E3%83%A2%E3%83%87%E3%83%AB%E9%81%B8%E6%8A%9E">¶</a></h1><p>上記のANOVA(=分散分析)では、以下のようなモデルを現した</p>
+$$ この魚の体長 = 平均の魚の体長 + 薬による上方(下方)効果 + 効果 $$<p>例えば、以下のようなモデルを比較して、どちらが良いモデルなのかを選択する作業</p>
+<ul>
+<li>Model1: この魚の体長 = 平均の魚の体長 + 薬による上方(下方)効果 + 誤差(1)</li>
+<li>Model2: この魚の体長 = 平均の魚の体長 + 誤差(2)  --- 薬の効果を誤差内に含むモデル</li>
+</ul>
+<p>左辺が等しいため: 薬による上方(下方)効果 = 誤差(2) - 誤差(1) が成り立つ</p>
+<p>よって、薬の効果は、"薬の影響を無視したモデルの誤差 - 薬の影響を加味したモデルの誤差" によって求めることが可能</p>
+$$ model1: x_{ij} = \beta_0 + \beta_i + \epsilon{ij} $$$$ model2: x_{ij} = \beta_0 + \epsilon{ij} $$
+<pre><code>\beta_0: 期待値
+\beta_i: 薬iの効果
+\epsilon_{ij} 薬iのj番目の誤差</code></pre>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [81]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">model_1</span> <span class="o">=</span> <span class="n">ols</span><span class="p">(</span><span class="s1">'length ~ medicine'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">medicine_df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="c1"># 効果がない場合、1を入れておく</span>
+<span class="n">model_2</span> <span class="o">=</span> <span class="n">ols</span><span class="p">(</span><span class="s1">'length ~ 1'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">medicine_df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="c1"># TODO: 以下の順番にmodelを入れないと正確にF-valueを出せない</span>
+<span class="n">sm</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">anova_lm</span><span class="p">(</span><span class="n">model_2</span><span class="p">,</span> <span class="n">model_1</span><span class="p">,</span> <span class="n">typ</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># df_resid: 誤差の分散の自由度</span>
+<span class="c1"># ssr: 誤差の偏差平方和</span>
+<span class="c1"># ss_diff: 残差平方和の差</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[81]:</div>
+<div class="output_html rendered_html output_subarea output_execute_result"><div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type &#123;
+        vertical-align: middle;
+    &#125;
+
+    .dataframe tbody tr th &#123;
+        vertical-align: top;
+    &#125;
+
+    .dataframe thead th &#123;
+        text-align: right;
+    &#125;
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>df_resid</th>
+<th>ssr</th>
+<th>df_diff</th>
+<th>ss_diff</th>
+<th>F</th>
+<th>Pr(&gt;F)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>5.0</td>
+<td>70.0</td>
+<td>0.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>1</th>
+<td>3.0</td>
+<td>6.0</td>
+<td>2.0</td>
+<td>64.0</td>
+<td>16.0</td>
+<td>0.025095</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 class="md_header_block" id="%E5%9B%9E%E5%B8%B0%E5%88%86%E6%9E%90">回帰分析<a class="anchor-link" href="#%E5%9B%9E%E5%B8%B0%E5%88%86%E6%9E%90">¶</a></h1><p>"ある値が変化することによって、興味の対象がどれだけ変化するか"をモデル化する手法</p>
+<p>例: 最小二乗法が最も一般的だから、とりあえず最小二乗法を利用した回帰モデルを作成</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [58]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'beer'</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span>
+    <span class="s1">'temperature'</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">beer_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">beer_df</span><span class="p">[</span><span class="s1">'temperature'</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">beer_df</span><span class="p">[</span><span class="s1">'beer'</span><span class="p">]</span>
+<span class="n">model_a</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'切片:'</span><span class="p">,</span> <span class="n">model_a</span><span class="o">.</span><span class="n">intercept_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'傾き:'</span><span class="p">,</span> <span class="n">model_a</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span>
+<span class="n">predicted_a</span> <span class="o">=</span> <span class="n">model_a</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="c1"># model_b = ols('beer ~ C(temperature)', data=beer_df).fit()</span>
+<span class="c1"># predicted_b = model_b.predict(beer_df['temperature'])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">'red'</span><span class="p">)</span>
+<span class="c1"># plt.ylabel("beer")</span>
+<span class="c1"># plt.xlabel("temperature")</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">predicted_a</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">'blue'</span><span class="p">)</span>
+<span class="c1"># plt.plot(X, predicted_b, c='yellow')</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>切片: 1.9999999999999991
+傾き: [1.]
+</pre>
+</div>
+</div>
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_png output_subarea">
+<img src="data:image/png;base64,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
+"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 class="md_header_block" id="%E5%9B%9E%E5%B8%B0%E5%88%86%E6%9E%90%E3%81%AE%E6%A4%9C%E5%AE%9A">回帰分析の検定<a class="anchor-link" href="#%E5%9B%9E%E5%B8%B0%E5%88%86%E6%9E%90%E3%81%AE%E6%A4%9C%E5%AE%9A">¶</a></h2><p>回帰分析の有意性を確認することで、たまたまでないことを保証するために検定する</p>
+<p>例: ビールの売り上げは気温の影響を受けていることがたまたまでないことを保証する</p>
+<ul>
+<li>手法<ul>
+<li>データを変化と誤差にわける方法(= ANOVAで実施した手法)</li>
+<li>気温が入っているモデル, 気温が入っていないモデルの残差を比較する(= モデル選択と同様の手法)</li>
+</ul>
+</li>
+</ul>
+$$ model_1: ビールの売上 = 気温の効果 + 切片 + 誤差(1) $$$$ model_1: ビールの売上 = 切片 + 誤差(2) $$<p>今回のケースでは、f-value=0.07...となり棄却域に落ちないため、気温による影響を受けると結論できない</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [87]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># ANOVA</span>
+<span class="n">anova</span> <span class="o">=</span> <span class="n">ols</span><span class="p">(</span><span class="s1">'beer ~ temperature'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">beer_df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">sm</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">anova_lm</span><span class="p">(</span><span class="n">anova</span><span class="p">,</span> <span class="n">typ</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[87]:</div>
+<div class="output_html rendered_html output_subarea output_execute_result"><div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type &#123;
+        vertical-align: middle;
+    &#125;
+
+    .dataframe tbody tr th &#123;
+        vertical-align: top;
+    &#125;
+
+    .dataframe thead th &#123;
+        text-align: right;
+    &#125;
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>df</th>
+<th>sum_sq</th>
+<th>mean_sq</th>
+<th>F</th>
+<th>PR(&gt;F)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>temperature</th>
+<td>1.0</td>
+<td>10.0</td>
+<td>10.000000</td>
+<td>7.5</td>
+<td>0.071422</td>
+</tr>
+<tr>
+<th>Residual</th>
+<td>3.0</td>
+<td>4.0</td>
+<td>1.333333</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [88]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># モデル選択</span>
+<span class="n">model_1</span> <span class="o">=</span> <span class="n">ols</span><span class="p">(</span><span class="s1">'beer ~ temperature'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">beer_df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">model_2</span> <span class="o">=</span> <span class="n">ols</span><span class="p">(</span><span class="s1">'beer ~ 1'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">beer_df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">sm</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">anova_lm</span><span class="p">(</span><span class="n">model_2</span><span class="p">,</span> <span class="n">model_1</span><span class="p">,</span> <span class="n">typ</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[88]:</div>
+<div class="output_html rendered_html output_subarea output_execute_result"><div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type &#123;
+        vertical-align: middle;
+    &#125;
+
+    .dataframe tbody tr th &#123;
+        vertical-align: top;
+    &#125;
+
+    .dataframe thead th &#123;
+        text-align: right;
+    &#125;
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>df_resid</th>
+<th>ssr</th>
+<th>df_diff</th>
+<th>ss_diff</th>
+<th>F</th>
+<th>Pr(&gt;F)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>4.0</td>
+<td>14.0</td>
+<td>0.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr>
+<th>1</th>
+<td>3.0</td>
+<td>4.0</td>
+<td>1.0</td>
+<td>10.0</td>
+<td>7.5</td>
+<td>0.071422</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 class="md_header_block" id="%E6%B1%BA%E5%AE%9A%E4%BF%82%E6%95%B0(R%5E2)%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6">決定係数(R^2)について<a class="anchor-link" href="#%E6%B1%BA%E5%AE%9A%E4%BF%82%E6%95%B0(R%5E2)%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6">¶</a></h2><p>データ全体に占める効果の大きさを表すことが可能になる</p>
+<p><code>R^2 = 1</code>のとき、すべてをモデルの中に入っている効果で表すことができる</p>
+$$ R^2 = \frac{効果の偏差平方和}{誤差の偏差平方和 + 効果の偏差平方和} $$
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [89]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">model_1</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/Users/k-kakimoto/dev/ml_samples/.venv/lib/python3.8/site-packages/statsmodels/stats/stattools.py:74: ValueWarning: omni_normtest is not valid with less than 8 observations; 5 samples were given.
+  warn("omni_normtest is not valid with less than 8 observations; %i "
+</pre>
+</div>
+</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[89]:</div>
+<div class="output_html rendered_html output_subarea output_execute_result"><table class="simpletable">
+<caption>OLS Regression Results</caption>
+<tr>
+<th>Dep. Variable:</th> <td>beer</td> <th>  R-squared:         </th> <td>   0.714</td>
+</tr>
+<tr>
+<th>Model:</th> <td>OLS</td> <th>  Adj. R-squared:    </th> <td>   0.619</td>
+</tr>
+<tr>
+<th>Method:</th> <td>Least Squares</td> <th>  F-statistic:       </th> <td>   7.500</td>
+</tr>
+<tr>
+<th>Date:</th> <td>Sun, 18 Sep 2022</td> <th>  Prob (F-statistic):</th> <td>0.0714</td>
+</tr>
+<tr>
+<th>Time:</th> <td>12:09:28</td> <th>  Log-Likelihood:    </th> <td> -6.5368</td>
+</tr>
+<tr>
+<th>No. Observations:</th> <td>     5</td> <th>  AIC:               </th> <td>   17.07</td>
+</tr>
+<tr>
+<th>Df Residuals:</th> <td>     3</td> <th>  BIC:               </th> <td>   16.29</td>
+</tr>
+<tr>
+<th>Df Model:</th> <td>     1</td> <th> </th> <td> </td>
+</tr>
+<tr>
+<th>Covariance Type:</th> <td>nonrobust</td> <th> </th> <td> </td>
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+<td></td> <th>coef</th> <th>std err</th> <th>t</th> <th>P&gt;|t|</th> <th>[0.025</th> <th>0.975]</th>
+</tr>
+<tr>
+<th>Intercept</th> <td>    2.0000</td> <td>    1.211</td> <td>    1.651</td> <td> 0.197</td> <td>   -1.854</td> <td>    5.854</td>
+</tr>
+<tr>
+<th>temperature</th> <td>    1.0000</td> <td>    0.365</td> <td>    2.739</td> <td> 0.071</td> <td>   -0.162</td> <td>    2.162</td>
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+<th>Omnibus:</th> <td>   nan</td> <th>  Durbin-Watson:     </th> <td>   2.500</td>
+</tr>
+<tr>
+<th>Prob(Omnibus):</th> <td>   nan</td> <th>  Jarque-Bera (JB):  </th> <td>   0.638</td>
+</tr>
+<tr>
+<th>Skew:</th> <td>-0.000</td> <th>  Prob(JB):          </th> <td>   0.727</td>
+</tr>
+<tr>
+<th>Kurtosis:</th> <td> 1.250</td> <th>  Cond. No.          </th> <td>    8.37</td>
+</tr>
+</table><br/><br/>Notes:<br/>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.</div>
+</div>
+</div>
+</div>
+</div>
+
+        </div>
+      </div>
+      
+    </div>
+
+    <div class="col-md-3">
+    
+      
+      <div class="article_metadata article_tags">
+        
+        <div class="article_tag_links">
+          
+        </div>
+      </div>
+
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+        <div class="article_metadata article_toc">
+          <ul class="toc">
+            
+              
+                <li class="h_h1"><a href='statistical_tests.html#ANOVA-(Analysis-Of-Variance)' >ANOVA (Analysis Of Variance)</a></li>
+              
+            
+              
+                <li class="h_h1"><a href='statistical_tests.html#%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90%E3%81%A8%E3%83%A2%E3%83%87%E3%83%AB%E9%81%B8%E6%8A%9E' >分散分析とモデル選択</a></li>
+              
+            
+              
+                <li class="h_h1"><a href='statistical_tests.html#%E5%9B%9E%E5%B8%B0%E5%88%86%E6%9E%90' >回帰分析</a></li>
+              
+            
+              
+                <li class="h_h2"><a href='statistical_tests.html#%E5%9B%9E%E5%B8%B0%E5%88%86%E6%9E%90%E3%81%AE%E6%A4%9C%E5%AE%9A' >回帰分析の検定</a></li>
+              
+            
+              
+                <li class="h_h2"><a href='statistical_tests.html#%E6%B1%BA%E5%AE%9A%E4%BF%82%E6%95%B0(R%5E2)%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6' >決定係数(R^2)について</a></li>
+              
+            
+          </ul>
+        </div>
+      
+
+      
+
+    
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<div class="container">
+  <div class="copyright">
+      <p class="copyright-text">Copyright © 20xx copyright holder</p>
+      <p class="copyright-text">Powered by <a href="https://github.com/miyadaiku/miyadaiku">miyadaiku</a></p>
+  </div>
+</div>
+
+
+
+</div>
+
+
+</body>
+</html>
