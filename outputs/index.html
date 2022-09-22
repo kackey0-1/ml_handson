@@ -194,6 +194,66 @@ MathJax.Hub.Config({
     
     <div class="articlebox" onclick="
         (function f() {
+            window.location = 'statistics/normal_linear_model.html';
+            window.event.preventDefault();
+         })()">
+      <a class="articlebox_ref" href="statistics/normal_linear_model.html">
+        <a></a>
+        <div class="article_summary">
+          
+          <div class='article_summary_body'><div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 class="md_header_block" id="%E6%AD%A3%E8%A6%8F%E7%B7%9A%E5%BD%A2%E3%83%A2%E3%83%87%E3%83%AB%E7%B4%B9%E4%BB%8B">正規線形モデル紹介<a class="anchor-link" href="#%E6%AD%A3%E8%A6%8F%E7%B7%9A%E5%BD%A2%E3%83%A2%E3%83%87%E3%83%AB%E7%B4%B9%E4%BB%8B">¶</a></h1><p>分散分析と回帰分析を一つのモデルにまとめたものを正規線形モデルという</p>
+<p>正規線形モデルを利用することで、より多くの説明変数を扱うことが可能になる</p>
+<ul>
+<li>例:<ul>
+<li>カテゴリ変数: 薬の有無</li>
+<li>連続変数: 魚の体長</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [7]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [22]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'./data/data0_linearModel.csv'</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'medicine'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">medicine</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">yes</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">no</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out</div></div></div></div></div></div>
+        </div>
+      </a>
+    </div>
+    
+
+  
+
+    
+    <div class="articlebox" onclick="
+        (function f() {
             window.location = 'statistics/mathjax.html';
             window.event.preventDefault();
          })()">
