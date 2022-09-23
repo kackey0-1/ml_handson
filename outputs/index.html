@@ -475,6 +475,41 @@ $$$$
     
     <div class="articlebox" onclick="
         (function f() {
+            window.location = 'jvm/gradle.html';
+            window.event.preventDefault();
+         })()">
+      <a class="articlebox_ref" href="jvm/gradle.html">
+        <a></a>
+        <div class="article_summary">
+          
+          <div class='article_summary_body'><h1 class="md_header_block" id="h_jvm_gradle_md_Gradleについて">Gradleについて</h1>
+<h2 class="md_header_block" id="h_jvm_gradle_md_Gradleとは">Gradleとは</h2>
+<ul>
+<li>一般的なbuildツール</li>
+<li>タスクベースを中心のモデル</li>
+<li>Directed Acyclic Graphsのようにタスクを設定することが可能</li>
+<li>Gradleはいくつかのbuild phaseを持っている</li>
+<li>Initialization</li>
+<li>Configuration</li>
+<li>Execution</li>
+<li>より直感的にbuild scriptを理解することが可能</li>
+</ul>
+<h2 class="md_header_block" id="h_jvm_gradle_md_mavenとの違いは_">mavenとの違いは？</h2>
+<ul>
+<li>Mavenはビルドの手順を定義するための言語として、XMLを用いる</li>
+<li>XMLでは、ぱっと見ただけでは、どのような処理をしているかなかなかわかりにくい</li>
+</ul>
+<h2 class="md_header_block" id="h_jvm_gradle_md_なぜ_Kotlin_を_DSL_に使うのか">な</h2></div>
+        </div>
+      </a>
+    </div>
+    
+
+  
+
+    
+    <div class="articlebox" onclick="
+        (function f() {
             window.location = 'jvm/jvm.html';
             window.event.preventDefault();
          })()">
@@ -495,6 +530,63 @@ $$$$
     ソースコード_like_Java--&gt;バイトコード_JVM
     バイトコード_JVM--&gt;MacOS
     バイトコード_JV</code></pre></div></div>
+        </div>
+      </a>
+    </div>
+    
+
+  
+
+    
+    <div class="articlebox" onclick="
+        (function f() {
+            window.location = 'jvm/gradle_dev.html';
+            window.event.preventDefault();
+         })()">
+      <a class="articlebox_ref" href="jvm/gradle_dev.html">
+        <a></a>
+        <div class="article_summary">
+          
+          <div class='article_summary_body'><h1 class="md_header_block" id="h_jvm_gradle_dev_md_Gradle_OSS_Development_Memo">Gradle OSS Development Memo</h1>
+<h2 class="md_header_block" id="h_jvm_gradle_dev_md_Entry_Pointの確認ログ">Entry Pointの確認ログ</h2>
+<table>
+<thead>
+<tr>
+<th>No.</th>
+<th>content</th>
+<th>class</th>
+<th>link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Entry Point</td>
+<td></td>
+<td><a href="https://github.com/kackey0-1/gradle/blob/af509fd7e9ddcb85de364bf5b6d131673615935a/gradlew#L206-L210">Command実行時の呼び出し</a></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Main Method in GradleWrapperMain</td>
+<td>GradleWrapperMain</td>
+<td><a href="https://github.com/kackey0-1/gradle/blob/2ec02f4919c1690debaa604f889f0f0a42dce6a1/subprojects/wrapper/src/main/java/org/gradle/wrapper/GradleWrapperMain.java#L38">main method</a></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Execution</td>
+<td>WrapperExecutor</td>
+<td><a href="https://github.com/kackey0-1/gradle/blob/2ec02f4919c1690debaa604f889f0f0a42dce6a1/subprojects/wrapper-shared/src/main/java/org/gradle/wrapper/WrapperExecutor.java#L108">execution method</a></td>
+</tr>
+<tr>
+<td>4</td>
+<td>start method</td>
+<td>BootstrapMainStarter</td>
+<td><a href="https://github.com/kackey0-1/gradle/blob/81263540fa33ec75aa381c505cce72a5471fcbcb/subprojects/wrapper-shared/src/main/java/org/gradle/wrapper/BootstrapMainStarter.java#L26">start method</a></td>
+</tr>
+<tr>
+<td>5</td>
+<td>main method through invoke method</td>
+<td>Gr</td></tr></tbody></table></div>
         </div>
       </a>
     </div>

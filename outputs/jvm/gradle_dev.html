@@ -5,7 +5,7 @@
   
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>JVM言語とは？ - Hypo Driven</title>
+    <title>Gradle OSS Development Memo - Hypo Driven</title>
     
     
 
@@ -70,11 +70,11 @@ MathJax.Hub.Config({
 <link href="http://localhost:8888/all.atom.xml" type="application/atom+xml" rel="alternate" title="Hypo Driven Atom Feed" />
 <link href="http://localhost:8888/channews.rdf" type="application/rss+xml" rel="alternate" title="Hypo Driven RSS Feed" />
 
-<meta property="og:url" content="http://localhost:8888/jvm/jvm.html" />
+<meta property="og:url" content="http://localhost:8888/jvm/gradle_dev.html" />
 <meta property="og:locale" content="ja-JP" />
 <meta property="og:type" content="article" />
 
-<meta property="og:title" content="JVM言語とは？ - Hypo Driven" />
+<meta property="og:title" content="Gradle OSS Development Memo - Hypo Driven" />
 
 <meta name="description" content="default page desctiption here"/>
 <meta property="og:description" content="default page desctiption here" />
@@ -130,49 +130,98 @@ MathJax.Hub.Config({
         
 
         <div class="article_body">
-          <h1 class="md_header_block" id="h_jvm_jvm_md_JVM言語とは_">JVM言語とは？</h1>
-<p>JVM(= Java Virtual Machine)の略称</p>
-<h2 class="md_header_block" id="h_jvm_jvm_md_JVMの働き">JVMの働き</h2>
-<ol>
-<li>ソースコードをJavaのコンパイラを通して、「バイトコード」と呼ばれる中間コードに変換</li>
-<li>バイトコードは、JVMによってそれぞれのOSにあった機械語に翻訳</li>
-</ol>
-<p>つまり、JVMがOSの違いを吸収するクッション材となってくれているのです。
-このように、Javaの実行環境は、間にJVMが挟まっているという点が特徴的です。</p>
-<div class="highlight"><pre><span></span><code>graph TD
-    ソースコード_like_Java--&gt;バイトコード_JVM
-    バイトコード_JVM--&gt;MacOS
-    バイトコード_JVM--&gt;Windows
-    バイトコード_JVM--&gt;Linux
-</code></pre></div>
-<h2 class="md_header_block" id="h_jvm_jvm_md_JVMのメリット_デメリット">JVMのメリット/デメリット</h2>
-<ul>
-<li>メリット</li>
-<li>マルチプラットフォーム：OSに依存せずに動作する<ul>
-<li>Windows用のJVMは、WindowsOSが実行できるような機械語に変換</li>
-<li>mac用のJVMは、macOSが実行できるような機械語に変換</li>
-<li>Linux用のJVMは、LinuxOSが実行できるような機械語に変換</li>
-</ul>
-</li>
-<li>デメリット</li>
-<li>実行速度が若干遅い、メモリを使う<ul>
-<li>C,C++などの完全なコンパイラ型の言語に比べると実行速度やメモリの面で性能が劣る</li>
-</ul>
-</li>
-</ul>
-<h2 class="md_header_block" id="h_jvm_jvm_md_JVM言語_例">JVM言語: 例</h2>
-<ul>
-<li>Java</li>
-<li>Kotlin</li>
-<li>Groovy</li>
-<li>Jython</li>
-<li>JRuby</li>
-</ul>
-<h2 class="md_header_block" id="h_jvm_jvm_md_JDK_Version管理">JDK Version管理</h2>
-<ul>
-<li>https://github.com/halcyon/asdf</li>
-<li>https://github.com/halcyon/asdf-java</li>
-</ul>
+          <h1 class="md_header_block" id="h_jvm_gradle_dev_md_Gradle_OSS_Development_Memo">Gradle OSS Development Memo</h1>
+<h2 class="md_header_block" id="h_jvm_gradle_dev_md_Entry_Pointの確認ログ">Entry Pointの確認ログ</h2>
+<table>
+<thead>
+<tr>
+<th>No.</th>
+<th>content</th>
+<th>class</th>
+<th>link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Entry Point</td>
+<td></td>
+<td><a href="https://github.com/kackey0-1/gradle/blob/af509fd7e9ddcb85de364bf5b6d131673615935a/gradlew#L206-L210">Command実行時の呼び出し</a></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Main Method in GradleWrapperMain</td>
+<td>GradleWrapperMain</td>
+<td><a href="https://github.com/kackey0-1/gradle/blob/2ec02f4919c1690debaa604f889f0f0a42dce6a1/subprojects/wrapper/src/main/java/org/gradle/wrapper/GradleWrapperMain.java#L38">main method</a></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Execution</td>
+<td>WrapperExecutor</td>
+<td><a href="https://github.com/kackey0-1/gradle/blob/2ec02f4919c1690debaa604f889f0f0a42dce6a1/subprojects/wrapper-shared/src/main/java/org/gradle/wrapper/WrapperExecutor.java#L108">execution method</a></td>
+</tr>
+<tr>
+<td>4</td>
+<td>start method</td>
+<td>BootstrapMainStarter</td>
+<td><a href="https://github.com/kackey0-1/gradle/blob/81263540fa33ec75aa381c505cce72a5471fcbcb/subprojects/wrapper-shared/src/main/java/org/gradle/wrapper/BootstrapMainStarter.java#L26">start method</a></td>
+</tr>
+<tr>
+<td>5</td>
+<td>main method through invoke method</td>
+<td>GradleMain</td>
+<td><a href="https://github.com/kackey0-1/gradle/blob/c24d29c30c9c3e4e2af47a7eceff75391b9a9059/subprojects/bootstrap/src/main/java/org/gradle/launcher/GradleMain.java#L24">main method through invoke method</a></td>
+</tr>
+<tr>
+<td>6</td>
+<td>run method through invoke method</td>
+<td>ProcessBootstrap</td>
+<td><a href="https://github.com/kackey0-1/gradle/blob/5c01e863d7fd0129ad758da6390e4ea33895f6e3/subprojects/launcher/src/main/java/org/gradle/launcher/bootstrap/ProcessBootstrap.java#L35">run method through invoke method</a></td>
+</tr>
+<tr>
+<td>7</td>
+<td>runNoExit method</td>
+<td>ProcessBootstrap</td>
+<td><a href="https://github.com/kackey0-1/gradle/blob/5c01e863d7fd0129ad758da6390e4ea33895f6e3/subprojects/launcher/src/main/java/org/gradle/launcher/bootstrap/ProcessBootstrap.java#L45">runNoExit method</a></td>
+</tr>
+<tr>
+<td>8</td>
+<td>Main class's main method</td>
+<td>Main</td>
+<td><a href="https://github.com/kackey0-1/gradle/blob/7e461f7a72d56c04d94c436ccdb1ef184fa72f5b/subprojects/launcher/src/main/java/org/gradle/launcher/Main.java#L30">Main.main method through invoke method</a></td>
+</tr>
+<tr>
+<td>9</td>
+<td>Main class's run method</td>
+<td>Main extends EntryPoint</td>
+<td><a href="https://github.com/kackey0-1/gradle/blob/5c01e863d7fd0129ad758da6390e4ea33895f6e3/subprojects/launcher/src/main/java/org/gradle/launcher/bootstrap/EntryPoint.java#L47">Main.run extends EntryPoint</a></td>
+</tr>
+<tr>
+<td>10</td>
+<td>Main doAction method</td>
+<td>Main</td>
+<td><a href="https://github.com/kackey0-1/gradle/blob/7e461f7a72d56c04d94c436ccdb1ef184fa72f5b/subprojects/launcher/src/main/java/org/gradle/launcher/Main.java#L35">Main.doAction method</a></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
         </div>
       </div>
       
@@ -202,19 +251,7 @@ MathJax.Hub.Config({
           <ul class="toc">
             
               
-                <li class="h_h2"><a href='jvm.html#h_jvm_jvm_md_JVMの働き' >JVMの働き</a></li>
-              
-            
-              
-                <li class="h_h2"><a href='jvm.html#h_jvm_jvm_md_JVMのメリット_デメリット' >JVMのメリット/デメリット</a></li>
-              
-            
-              
-                <li class="h_h2"><a href='jvm.html#h_jvm_jvm_md_JVM言語_例' >JVM言語: 例</a></li>
-              
-            
-              
-                <li class="h_h2"><a href='jvm.html#h_jvm_jvm_md_JDK_Version管理' >JDK Version管理</a></li>
+                <li class="h_h2"><a href='gradle_dev.html#h_jvm_gradle_dev_md_Entry_Pointの確認ログ' >Entry Pointの確認ログ</a></li>
               
             
           </ul>
