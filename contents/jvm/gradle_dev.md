@@ -9,6 +9,9 @@
     This will create a minimal distribution at `subprojects/distributions-full/build/distributions/gradle-<version>-bin.zip`, just what's needed to run Gradle (i.e. no sources nor docs).
 
 2. You can then use it as a Gradle Wrapper local distribution in a Gradle based project by using a `file:/` URL pointing to the built distribution:
+    - wrapper option: `gradle/wrapper/gradle-wrapper.properties`を上書き利用するversionを指定
+      次回以降の実行時には`wrapper`にて設定されたversionを利用する
+      ```bash
     ```bash
     ./gradlew wrapper --gradle-distribution-url=file:/path/to/gradle-<version>-bin.zip
     ```
