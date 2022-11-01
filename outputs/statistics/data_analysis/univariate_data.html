@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+<head>
+   
+  
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>1変量データ - Hypo Driven</title>
+    
+    
+
+  
+
+
+<!-- include docutils5 css -->
+<link rel="stylesheet" href="../../static/docutils_html5/minimal.css">
+  <link rel="stylesheet" href="../../static/docutils_html5/plain.css">
+
+<!-- include pygments css -->
+<link rel="stylesheet" href="../../static/pygments/default.css">
+
+<!-- include boolstrap4 -->
+<link rel="stylesheet" href="../../static/bootstrap4/bootstrap.min.css">
+
+<!-- include jquery.js -->
+<script src="../../static/jquery/jquery.min.js"></script>
+
+<!-- include popper.js -->
+<script src="../../static/popper.js/popper.min.js"></script>
+
+<!-- include boolstrap4 js -->
+<script src="../../static/bootstrap4/bootstrap.min.js"></script>
+
+<!-- include font awesome -->
+<script defer src="../../static/fontawesome/js/all.min.js"></script>
+  <script defer src="../../static/fontawesome/js/v4-shims.min.js"></script>
+
+<!-- include ipynb minimum style -->
+<link rel="stylesheet" href="../../static/ipynb/styles/min_ipynb.css">
+
+<link rel="stylesheet" href="../../static/css/sample_index_pagenation.css">
+<link href="../../static/newblog/ipynb_styles.css" rel="stylesheet">
+
+<!-- Loading mathjax macro -->
+<!-- Load mathjax -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_HTML"></script>
+<!-- MathJax configuration -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true,
+        processEnvironments: true
+    },
+    // Center justify equations in code and markdown cells. Elsewhere
+    // we use CSS to left justify single line equations in code cells.
+    displayAlign: 'center',
+    "HTML-CSS": {
+        styles: {'.MathJax_Display': {"margin": 0}},
+        linebreaks: { automatic: true }
+    }
+});
+</script>
+
+<link rel="stylesheet" href="../../static/newblog/main.css">
+
+
+
+<link href="http://localhost:8888/all.atom.xml" type="application/atom+xml" rel="alternate" title="Hypo Driven Atom Feed" />
+<link href="http://localhost:8888/channews.rdf" type="application/rss+xml" rel="alternate" title="Hypo Driven RSS Feed" />
+
+<meta property="og:url" content="http://localhost:8888/statistics/data_analysis/univariate_data.html" />
+<meta property="og:locale" content="ja-JP" />
+<meta property="og:type" content="article" />
+
+<meta property="og:title" content="1変量データ - Hypo Driven" />
+
+<meta name="description" content="default page desctiption here"/>
+<meta property="og:description" content="default page desctiption here" />
+
+
+
+
+
+</head>
+
+<body>
+   
+<div>
+
+
+<div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="../../index.html"
+      >
+      
+      Hypo Driven </a
+    >
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" href="../../about.html">このサイトについて</a>
+      </div>
+    </div>
+  </nav>
+</div>
+
+ 
+
+
+
+<div class="container article_container">
+  <div class="row">
+    <div class="col-md-9">
+
+      
+      <div class="article">
+        
+
+        <div class="article_body">
+          <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 class="md_header_block" id="1%E5%A4%89%E9%87%8F%E3%83%87%E3%83%BC%E3%82%BF">1変量データ<a class="anchor-link" href="#1%E5%A4%89%E9%87%8F%E3%83%87%E3%83%BC%E3%82%BF">¶</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [14]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="o">%</span><span class="k">precision</span> 3
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[14]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>'%.3f'</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [15]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">fish_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span>
+<span class="n">fish_data</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[15]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>array([2, 3, 3, 4, 4, 4, 4, 5, 5, 6])</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [16]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="c1"># sp.sum(fish_data)</span>
+<span class="c1"># scipy.sum is already deprecated</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'sum'</span><span class="p">,</span> <span class="n">fish_data</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'len'</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">fish_data</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>sum 40
+len 10
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 class="md_header_block" id="%E6%9C%9F%E5%BE%85%E5%80%A4">期待値<a class="anchor-link" href="#%E6%9C%9F%E5%BE%85%E5%80%A4">¶</a></h2>$$
+  \mu = \frac{1}{N} \sum_{i=1}^N x_i
+$$
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [12]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">fish_data</span><span class="p">)</span>
+<span class="n">sum_value</span> <span class="o">=</span> <span class="n">fish_data</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="c1"># sp.sum(fish_data)</span>
+<span class="n">mu</span> <span class="o">=</span> <span class="n">sum_value</span> <span class="o">/</span> <span class="n">N</span>
+<span class="n">mu</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[12]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>4.000</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 class="md_header_block" id="%E6%A8%99%E6%9C%AC%E5%88%86%E6%95%A3">標本分散<a class="anchor-link" href="#%E6%A8%99%E6%9C%AC%E5%88%86%E6%95%A3">¶</a></h2>$$
+  \sigma^2 = \frac{1}{N} \sum_{i=1}^N (x_i - \mu)^2
+$$
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [1]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">requests</span> <span class="kn">import</span> <span class="n">HTTPError</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span><span class="p">,</span><span class="n">time</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"atsumaru_top_page.html"</span><span class="p">,</span><span class="s2">"r"</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s1">'UTF-8'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">html</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html</span><span class="p">,</span><span class="s2">"lxml"</span><span class="p">)</span>
+<span class="n">base_url</span> <span class="o">=</span> <span class="s2">"https://atsumaru.jp"</span>
+<span class="n">a_tags</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">"h2.bl_card2_ttl &gt; span &gt; a"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a_tags</span><span class="p">))</span>
+<span class="n">d_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">a_tag</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">a_tags</span><span class="p">):</span>
+    <span class="n">detail_url</span> <span class="o">=</span> <span class="n">base_url</span> <span class="o">+</span> <span class="n">a_tag</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"href"</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">detail_url</span><span class="p">)</span>
+        <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+    <span class="k">except</span> <span class="n">HTTPError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">pass</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">detail_url</span><span class="p">)</span>
+        <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+        <span class="n">detail_soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">content</span><span class="p">,</span><span class="s2">"lxml"</span><span class="p">)</span>
+        <span class="n">company_name</span> <span class="o">=</span> <span class="n">detail_soup</span><span class="o">.</span><span class="n">select_one</span><span class="p">(</span><span class="s2">"h2.bl_card2_ttl &gt; span"</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+        <span class="n">address</span> <span class="o">=</span> <span class="n">detail_soup</span><span class="o">.</span><span class="n">select_one</span><span class="p">(</span><span class="s2">"td:-soup-contains('地図はこちら') &gt; p"</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+        <span class="n">phone</span> <span class="o">=</span> <span class="n">detail_soup</span><span class="o">.</span><span class="n">select_one</span><span class="p">(</span><span class="s2">"div.telNo&gt;p&gt;strong&gt;a"</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+        <span class="n">person_in_charge</span> <span class="o">=</span> <span class="n">detail_soup</span><span class="o">.</span><span class="n">select_one</span><span class="p">(</span><span class="s2">"div.telNo&gt;p:nth-of-type(2)"</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+        <span class="n">d_list</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">"Company_Name"</span><span class="p">:</span><span class="n">company_name</span><span class="p">,</span><span class="s2">"Address"</span><span class="p">:</span><span class="n">address</span><span class="p">,</span><span class="s2">"Phone"</span><span class="p">:</span> <span class="n">phone</span><span class="p">,</span><span class="s2">"担当者"</span><span class="p">:</span><span class="n">person_in_charge</span><span class="p">})</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"="</span><span class="o">*</span><span class="mi">30</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="s2">"="</span><span class="o">*</span><span class="mi">30</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">d_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">FileNotFoundError</span>                         Traceback (most recent call last)
+Input <span class="ansi-green-fg">In [1]</span>, in <span class="ansi-cyan-fg">&lt;cell line: 6&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> <span class="ansi-bold" style="color: rgb(0,0,255)">pandas</span> <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> <span class="ansi-bold" style="color: rgb(0,0,255)">pd</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> <span class="ansi-bold" style="color: rgb(0,0,255)">requests</span>
+<span class="ansi-green-fg">----&gt; 6</span> <span class="ansi-bold" style="color: rgb(0,135,0)">with</span> <span class="ansi-yellow-bg" style="color: rgb(0,135,0)">open</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">"</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">atsumaru_top_page.html</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">"</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">"</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">r</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">"</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg">encoding</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">'</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">UTF-8</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">'</span><span class="ansi-yellow-bg">)</span> <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> f:
+<span class="ansi-green-intense-fg ansi-bold">      7</span>     html <span style="color: rgb(98,98,98)">=</span> f<span style="color: rgb(98,98,98)">.</span>read()
+<span class="ansi-green-intense-fg ansi-bold">      9</span> soup <span style="color: rgb(98,98,98)">=</span> BeautifulSoup(html,<span style="color: rgb(175,0,0)">"</span><span style="color: rgb(175,0,0)">lxml</span><span style="color: rgb(175,0,0)">"</span>)
+
+<span class="ansi-red-fg">FileNotFoundError</span>: [Errno 2] No such file or directory: 'atsumaru_top_page.html'</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+        </div>
+      </div>
+      
+    </div>
+
+    <div class="col-md-3">
+    
+      
+      <div class="article_metadata article_tags">
+        
+        <div class="article_tag_links">
+          
+        </div>
+      </div>
+
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+        <div class="article_metadata article_toc">
+          <ul class="toc">
+            
+              
+                <li class="h_h2"><a href='univariate_data.html#%E6%9C%9F%E5%BE%85%E5%80%A4' >期待値</a></li>
+              
+            
+              
+                <li class="h_h2"><a href='univariate_data.html#%E6%A8%99%E6%9C%AC%E5%88%86%E6%95%A3' >標本分散</a></li>
+              
+            
+          </ul>
+        </div>
+      
+
+      
+
+    
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<div class="container">
+  <div class="copyright">
+      <p class="copyright-text">Copyright © 20xx copyright holder</p>
+      <p class="copyright-text">Powered by <a href="https://github.com/miyadaiku/miyadaiku">miyadaiku</a></p>
+  </div>
+</div>
+
+
+
+</div>
+
+
+</body>
+</html>
