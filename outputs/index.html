@@ -264,11 +264,37 @@ MathJax.Hub.Config({
           <div class='article_summary_body'><div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 class="md_header_block" id="%E6%AD%A3%E8%A6%8F%E7%B7%9A%E5%BD%A2%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AB%E3%82%88%E3%82%8B%E3%83%87%E3%83%BC%E3%82%BF%E8%A7%A3%E6%9E%90">正規線形モデルによるデータ解析<a class="anchor-link" href="#%E6%AD%A3%E8%A6%8F%E7%B7%9A%E5%BD%A2%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AB%E3%82%88%E3%82%8B%E3%83%87%E3%83%BC%E3%82%BF%E8%A7%A3%E6%9E%90">¶</a></h1>
+<h1 class="md_header_block" id="%E6%AD%A3%E8%A6%8F%E7%B7%9A%E5%BD%A2%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AB%E3%82%88%E3%82%8B%E3%83%87%E3%83%BC%E3%82%BF%E8%A7%A3%E6%9E%90">正規線形モデルによるデータ解析<a class="anchor-link" href="#%E6%AD%A3%E8%A6%8F%E7%B7%9A%E5%BD%A2%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AB%E3%82%88%E3%82%8B%E3%83%87%E3%83%BC%E3%82%BF%E8%A7%A3%E6%9E%90">¶</a></h1><p>Type2 ANOVAと呼ばれる検定の仕組みを説明</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [3]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">from</span> <span class="nn">statsmodels.formula.api</span> <span class="kn">import</span> <span class="n">ols</span>
+</pre></div>
 </div>
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 class="md_header_block" id="%E3%83%A2%E3%83%87%E3%83%AB%E9%81%B8%E6%8A%9E%E3%81%A8%E3%80%8C%E3%83%95%E3%83%84%E3%83%BC%E3%81%AE%E3%80%8D%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90(=Type1-ANOVA)%E3%81%AE%E9%81%95%E3%81%84">モデル選択と「フツーの」分散分析(=Type1 ANOVA)の違い<a class="anchor-link" href="#%E3%83%A2%E3%83%87%E3%83%AB%E9%81%B8%E6%8A%9E%E3%81%A8%E3%80%8C%E3%83%95%E3%83%84%E3%83%BC%E3%81%AE%E3%80%8D%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90(=Type1-ANOVA)%E3%81%AE%E9%81%95%E3%81%84">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [40]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'./data/data0_linearModel.csv'</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'medicine'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">medicine</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">yes</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">no</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></pre></div></div></div></div></div></div>
         </div>
       </a>
     </div>
