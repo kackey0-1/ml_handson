@@ -131,6 +131,31 @@ MathJax.Hub.Config({
 
         <div class="article_body">
           <h1 class="md_header_block" id="h_jvm_gradle_dev_md_Gradle_OSS_Development_Memo">Gradle OSS Development Memo</h1>
+<h2 class="md_header_block" id="h_jvm_gradle_dev_md_ローカルでのbuild方法">ローカルでのbuild方法</h2>
+<ol>
+<li>
+<p>To create a Gradle distribution from the source tree you can run either of the following:
+    <code>bash
+    ./gradlew :distributions-full:binDistributionZip</code>
+    This will create a minimal distribution at <code>subprojects/distributions-full/build/distributions/gradle-&lt;version&gt;-bin.zip</code>, just what's needed to run Gradle (i.e. no sources nor docs).</p>
+</li>
+<li>
+<p>You can then use it as a Gradle Wrapper local distribution in a Gradle based project by using a <code>file:/</code> URL pointing to the built distribution:</p>
+<ul>
+<li>wrapper option: <code>gradle/wrapper/gradle-wrapper.properties</code>を上書き利用するversionを指定
+  次回以降の実行時には<code>wrapper</code>にて設定されたversionを利用する
+  <code>bash</code>bash
+./gradlew wrapper --gradle-distribution-url=file:/path/to/gradle-<version>-bin.zip
+```</version></li>
+</ul>
+</li>
+<li>To create a full distribution (includes sources and docs):
+    <code>bash
+    ./gradlew :distributions-full:allDistributionZip</code></li>
+<li>The full distribution will be created at <code>subprojects/distributions-full/build/distributions/gradle-&lt;version&gt;-all.zip</code>. You can then use it as a Gradle Wrapper local distribution:
+    <code>bash
+    ./gradlew wrapper --gradle-distribution-url=file:/path/to/gradle-&lt;version&gt;-all.zip</code></li>
+</ol>
 <h2 class="md_header_block" id="h_jvm_gradle_dev_md_Entry_Pointの確認ログ">Entry Pointの確認ログ</h2>
 <table>
 <thead>
@@ -203,16 +228,16 @@ MathJax.Hub.Config({
 <td><a href="https://github.com/kackey0-1/gradle/blob/7e461f7a72d56c04d94c436ccdb1ef184fa72f5b/subprojects/launcher/src/main/java/org/gradle/launcher/Main.java#L35">Main.doAction method</a></td>
 </tr>
 <tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>11</td>
+<td>create execution command</td>
+<td>convert in DefaultCommandLineActionFactory</td>
+<td><a href="https://github.com/kackey0-1/gradle/blob/439a1668b710ef9a4cd7ac5d2617defda850b0ca/subprojects/launcher/src/main/java/org/gradle/launcher/cli/DefaultCommandLineActionFactory.java#L74">DefaultCommandLineActionFactory.convert</a></td>
 </tr>
 <tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>12</td>
+<td>execute method</td>
+<td>execute method through WithLogging</td>
+<td><a href="https://github.com/kackey0-1/gradle/blob/439a1668b710ef9a4cd7ac5d2617defda850b0ca/subprojects/launcher/src/main/java/org/gradle/launcher/cli/DefaultCommandLineActionFactory.java#L314">WithLogging.execute</a></td>
 </tr>
 <tr>
 <td></td>
@@ -249,6 +274,10 @@ MathJax.Hub.Config({
       
         <div class="article_metadata article_toc">
           <ul class="toc">
+            
+              
+                <li class="h_h2"><a href='gradle_dev.html#h_jvm_gradle_dev_md_ローカルでのbuild方法' >ローカルでのbuild方法</a></li>
+              
             
               
                 <li class="h_h2"><a href='gradle_dev.html#h_jvm_gradle_dev_md_Entry_Pointの確認ログ' >Entry Pointの確認ログ</a></li>
