@@ -151,17 +151,10 @@ MathJax.Hub.Config({
 <div class="highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
 <span class="o">%</span><span class="k">precision</span> 3
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">'ignore'</span><span class="p">)</span>
 </pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt output_prompt">Out[1]:</div>
-<div class="output_text output_subarea output_execute_result">
-<pre>'%.3f'</pre>
-</div>
 </div>
 </div>
 </div>
@@ -225,7 +218,7 @@ $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [7]:</div>
+<div class="prompt input_prompt">In [4]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython2"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">fish_data</span><span class="p">)</span>
@@ -239,7 +232,7 @@ $$
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area">
-<div class="prompt output_prompt">Out[7]:</div>
+<div class="prompt output_prompt">Out[4]:</div>
 <div class="output_text output_subarea output_execute_result">
 <pre>4.000</pre>
 </div>
@@ -259,7 +252,7 @@ $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [18]:</div>
+<div class="prompt input_prompt">In [5]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython2"><pre><span></span><span class="n">sigma_2_sample</span> <span class="o">=</span> <span class="p">((</span><span class="n">fish_data</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">N</span>
@@ -271,7 +264,7 @@ $$
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area">
-<div class="prompt output_prompt">Out[18]:</div>
+<div class="prompt output_prompt">Out[5]:</div>
 <div class="output_text output_subarea output_execute_result">
 <pre>1.200</pre>
 </div>
@@ -295,7 +288,7 @@ $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [20]:</div>
+<div class="prompt input_prompt">In [6]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython2"><pre><span></span><span class="n">sigma_2</span> <span class="o">=</span> <span class="p">((</span><span class="n">fish_data</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="n">N</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
@@ -307,7 +300,7 @@ $$
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area">
-<div class="prompt output_prompt">Out[20]:</div>
+<div class="prompt output_prompt">Out[6]:</div>
 <div class="output_text output_subarea output_execute_result">
 <pre>1.333</pre>
 </div>
@@ -326,7 +319,7 @@ $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [26]:</div>
+<div class="prompt input_prompt">In [7]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython2"><pre><span></span><span class="n">sigma</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(((</span><span class="n">fish_data</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="n">N</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
@@ -338,15 +331,7 @@ $$
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/var/folders/ht/jxpc68cx6flfn8khw5l066lm0000gn/T/ipykernel_35788/2819162993.py:1: DeprecationWarning: scipy.sqrt is deprecated and will be removed in SciPy 2.0.0, use numpy.lib.scimath.sqrt instead
-  sigma = sp.sqrt(((fish_data - mu) ** 2).sum() / (N -1))
-</pre>
-</div>
-</div>
-<div class="output_area">
-<div class="prompt output_prompt">Out[26]:</div>
+<div class="prompt output_prompt">Out[7]:</div>
 <div class="output_text output_subarea output_execute_result">
 <pre>1.155</pre>
 </div>
@@ -369,7 +354,7 @@ $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [47]:</div>
+<div class="prompt input_prompt">In [8]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython2"><pre><span></span><span class="nb">print</span><span class="p">((</span><span class="n">fish_data</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
@@ -396,18 +381,6 @@ $$
 [-1.732 -0.866 -0.866  0.     0.     0.     0.     0.866  0.866  1.732]
 2.2204460492503132e-17
 1.0
-</pre>
-</div>
-</div>
-<div class="output_area">
-<div class="prompt"></div>
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/var/folders/ht/jxpc68cx6flfn8khw5l066lm0000gn/T/ipykernel_35788/3192372477.py:5: DeprecationWarning: scipy.std is deprecated and will be removed in SciPy 2.0.0, use numpy.std instead
-  print(sp.std(fish_data / sigma, ddof=1))
-/var/folders/ht/jxpc68cx6flfn8khw5l066lm0000gn/T/ipykernel_35788/3192372477.py:8: DeprecationWarning: scipy.mean is deprecated and will be removed in SciPy 2.0.0, use numpy.mean instead
-  print(sp.mean(standard))
-/var/folders/ht/jxpc68cx6flfn8khw5l066lm0000gn/T/ipykernel_35788/3192372477.py:9: DeprecationWarning: scipy.std is deprecated and will be removed in SciPy 2.0.0, use numpy.std instead
-  print(sp.std(standard, ddof=1))
 </pre>
 </div>
 </div>

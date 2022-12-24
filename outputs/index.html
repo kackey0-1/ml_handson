@@ -314,6 +314,62 @@ $$$$
     
     <div class="articlebox" onclick="
         (function f() {
+            window.location = 'statistics/data_analysis/04_data_collect_simulation.html';
+            window.event.preventDefault();
+         })()">
+      <a class="articlebox_ref" href="statistics/data_analysis/04_data_collect_simulation.html">
+        <a></a>
+        <div class="article_summary">
+          
+          <div class='article_summary_body'><div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [67]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+
+<span class="o">%</span><span class="k">precision</span> 3
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">'ignore'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 class="md_header_block" id="%E6%AF%8D%E9%9B%86%E5%9B%A3%E3%81%8B%E3%82%89%E6%A8%99%E6%9C%AC%E6%8A%BD%E5%87%BA%E3%81%99%E3%82%8B%E3%82%B7%E3%83%9F%E3%83%A5%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3">母集団から標本抽出するシミュレーション<a class="anchor-link" href="#%E6%AF%8D%E9%9B%86%E5%9B%A3%E3%81%8B%E3%82%89%E6%A8%99%E6%9C%AC%E6%8A%BD%E5%87%BA%E3%81%99%E3%82%8B%E3%82%B7%E3%83%9F%E3%83%A5%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3">¶</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [68]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="c1"># randomに3件抽出</span>
+
+<span class="n">fish_5</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arra</span></pre></div></div></div></div></div></div>
+        </div>
+      </a>
+    </div>
+    
+
+  
+
+    
+    <div class="articlebox" onclick="
+        (function f() {
             window.location = 'statistics/data_analysis/03_draw_graph.html';
             window.event.preventDefault();
          })()">
@@ -375,7 +431,7 @@ $$$$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [44]:</div>
+<div class="prompt input_prompt">In [1]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
@@ -391,7 +447,7 @@ $$$$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [45]:</div>
+<div class="prompt input_prompt">In [2]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython2"><pre><span></span><span class="n">fish_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'../data/3-2-1-fish_multi.csv'</span><span class="p">)</span>
@@ -403,7 +459,7 @@ $$$$
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area">
-<div class="prompt output_prompt">Out[45]:</div>
+<div class="prompt output_prompt">Out[2]:</div>
 <div class="output_html rendered_html output_subarea output_execute_result"><div>
 
 <table border="1" class="dataframe">
@@ -454,10 +510,64 @@ $$$$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [46]:</div>
+<div class="prompt input_prompt">In [3]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython2"><pre><span></span><span class="n">group</span> <span class="o">=</span> <span class="n">fish_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'species</span></pre></div></div></div></div></div></div>
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">group</span> <span class="o">=</span> <span class="n">fish_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'species'</span><span class="p">)</span>
+<span class="nb">pr</span></pre></div></div></div></div></div></div>
+        </div>
+      </a>
+    </div>
+    
+
+  
+
+    
+    <div class="articlebox" onclick="
+        (function f() {
+            window.location = 'statistics/data_analysis/05_features_of_stats.html';
+            window.event.preventDefault();
+         })()">
+      <a class="articlebox_ref" href="statistics/data_analysis/05_features_of_stats.html">
+        <a></a>
+        <div class="article_summary">
+          
+          <div class='article_summary_body'><div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 class="md_header_block" id="%E6%A8%99%E6%9C%AC%E3%81%AE%E7%B5%B1%E8%A8%88%E9%87%8F%E3%81%A8%E6%80%A7%E8%B3%AA">標本の統計量と性質<a class="anchor-link" href="#%E6%A8%99%E6%9C%AC%E3%81%AE%E7%B5%B1%E8%A8%88%E9%87%8F%E3%81%A8%E6%80%A7%E8%B3%AA">¶</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [4]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+<span class="o">%</span><span class="k">precision</span> 3
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">'ignore'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [14]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">population</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.8</span></pre></div></div></div></div></div></div>
         </div>
       </a>
     </div>
@@ -496,17 +606,10 @@ $$$$
 <div class="highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
 <span class="o">%</span><span class="k">precision</span> 3
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">'ignore'</span><span class="p">)</span>
 </pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt output_prompt">Out[1]:</div>
-<div class="output_text output_subarea output_execute_result">
-<pre>'%.3f'</pre>
-</div>
 </div>
 </div>
 </div>
@@ -540,8 +643,7 @@ $$$$
 <div class="input_area">
 <div class="highlight hl-ipython2"><pre><span></span><span class="c1"># sp.sum(fish_data)</span>
 <span class="c1"># scipy.sum is already deprecated</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">'sum'</span><span class="p">,</span> <span class="n">fish_data</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">'len'</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">f</span></pre></div></div></div></div></div></div>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'sum'</span></pre></div></div></div></div></div></div>
         </div>
       </a>
     </div>
