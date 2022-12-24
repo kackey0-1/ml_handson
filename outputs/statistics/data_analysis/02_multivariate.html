@@ -139,7 +139,7 @@ MathJax.Hub.Config({
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [44]:</div>
+<div class="prompt input_prompt">In [1]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
@@ -155,7 +155,7 @@ MathJax.Hub.Config({
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [45]:</div>
+<div class="prompt input_prompt">In [2]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython2"><pre><span></span><span class="n">fish_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'../data/3-2-1-fish_multi.csv'</span><span class="p">)</span>
@@ -167,7 +167,7 @@ MathJax.Hub.Config({
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area">
-<div class="prompt output_prompt">Out[45]:</div>
+<div class="prompt output_prompt">Out[2]:</div>
 <div class="output_html rendered_html output_subarea output_execute_result"><div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type &#123;
@@ -230,7 +230,7 @@ MathJax.Hub.Config({
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [46]:</div>
+<div class="prompt input_prompt">In [3]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython2"><pre><span></span><span class="n">group</span> <span class="o">=</span> <span class="n">fish_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'species'</span><span class="p">)</span>
@@ -265,7 +265,7 @@ B            10
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [47]:</div>
+<div class="prompt input_prompt">In [4]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython2"><pre><span></span><span class="n">group</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
@@ -276,7 +276,7 @@ B            10
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area">
-<div class="prompt output_prompt">Out[47]:</div>
+<div class="prompt output_prompt">Out[4]:</div>
 <div class="output_html rendered_html output_subarea output_execute_result"><div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type &#123;
@@ -356,7 +356,7 @@ B            10
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [48]:</div>
+<div class="prompt input_prompt">In [5]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython2"><pre><span></span><span class="n">shoes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'../data/3-2-2-shoes.csv'</span><span class="p">)</span>
@@ -368,7 +368,7 @@ B            10
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area">
-<div class="prompt output_prompt">Out[48]:</div>
+<div class="prompt output_prompt">Out[5]:</div>
 <div class="output_html rendered_html output_subarea output_execute_result"><div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type &#123;
@@ -426,7 +426,7 @@ B            10
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [49]:</div>
+<div class="prompt input_prompt">In [6]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython2"><pre><span></span><span class="n">cross</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
@@ -444,7 +444,7 @@ B            10
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area">
-<div class="prompt output_prompt">Out[49]:</div>
+<div class="prompt output_prompt">Out[6]:</div>
 <div class="output_html rendered_html output_subarea output_execute_result"><div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type &#123;
@@ -509,7 +509,7 @@ $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [50]:</div>
+<div class="prompt input_prompt">In [7]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython2"><pre><span></span><span class="n">cov_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'../data/3-2-3-cov.csv'</span><span class="p">)</span>
@@ -553,7 +553,7 @@ covariance(N-1) 7.673333333333336
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [51]:</div>
+<div class="prompt input_prompt">In [8]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython2"><pre><span></span><span class="c1"># 分散共分散行列</span>
@@ -600,7 +600,7 @@ $$<ul>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [52]:</div>
+<div class="prompt input_prompt">In [9]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython2"><pre><span></span><span class="c1"># variance</span>
