@@ -548,6 +548,58 @@ $$$$
     
     <div class="articlebox" onclick="
         (function f() {
+            window.location = 'statistics/data_analysis/08_hypothesis_test.html';
+            window.event.preventDefault();
+         })()">
+      <a class="articlebox_ref" href="statistics/data_analysis/08_hypothesis_test.html">
+        <a></a>
+        <div class="article_summary">
+          
+          <div class='article_summary_body'><div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 class="md_header_block" id="%E7%B5%B1%E8%A8%88%E7%9A%84%E4%BB%AE%E8%A8%AD%E6%A4%9C%E5%AE%9A">統計的仮設検定<a class="anchor-link" href="#%E7%B5%B1%E8%A8%88%E7%9A%84%E4%BB%AE%E8%A8%AD%E6%A4%9C%E5%AE%9A">¶</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 class="md_header_block" id="1%E5%A4%89%E9%87%8F%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE-t%E6%A4%9C%E5%AE%9A">1変量データの t検定<a class="anchor-link" href="#1%E5%A4%89%E9%87%8F%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE-t%E6%A4%9C%E5%AE%9A">¶</a></h2><ul>
+<li>対象: 平均値</li>
+<li>判定すること: 平均値がある値と異なると言えるか</li>
+</ul>
+$$
+t値 = \frac{標本平均-比較対象値}{標準偏差/\sqrt{サンプルサイズ
+}} = \frac{標本平均-比較対象値}{\sqrt{標準誤差}}
+$$
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [9]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+<span class="o">%</span><span class="k">prec</span></pre></div></div></div></div></div></div>
+        </div>
+      </a>
+    </div>
+    
+
+  
+
+    
+    <div class="articlebox" onclick="
+        (function f() {
             window.location = 'statistics/data_analysis/05_features_of_stats.html';
             window.event.preventDefault();
          })()">
