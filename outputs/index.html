@@ -337,511 +337,6 @@ $$$$
     
     <div class="articlebox" onclick="
         (function f() {
-            window.location = 'statistics/data_analysis/04_data_collect_simulation.html';
-            window.event.preventDefault();
-         })()">
-      <a class="articlebox_ref" href="statistics/data_analysis/04_data_collect_simulation.html">
-        <a></a>
-        <div class="article_summary">
-          
-          <div class='article_summary_body'><div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [67]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
-<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
-
-<span class="o">%</span><span class="k">precision</span> 3
-<span class="o">%</span><span class="k">matplotlib</span> inline
-
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">'ignore'</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 class="md_header_block" id="%E6%AF%8D%E9%9B%86%E5%9B%A3%E3%81%8B%E3%82%89%E6%A8%99%E6%9C%AC%E6%8A%BD%E5%87%BA%E3%81%99%E3%82%8B%E3%82%B7%E3%83%9F%E3%83%A5%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3">母集団から標本抽出するシミュレーション<a class="anchor-link" href="#%E6%AF%8D%E9%9B%86%E5%9B%A3%E3%81%8B%E3%82%89%E6%A8%99%E6%9C%AC%E6%8A%BD%E5%87%BA%E3%81%99%E3%82%8B%E3%82%B7%E3%83%9F%E3%83%A5%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3">¶</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [68]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython2"><pre><span></span><span class="c1"># randomに3件抽出</span>
-
-<span class="n">fish_5</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arra</span></pre></div></div></div></div></div></div>
-        </div>
-      </a>
-    </div>
-    
-
-  
-
-    
-    <div class="articlebox" onclick="
-        (function f() {
-            window.location = 'statistics/data_analysis/03_draw_graph.html';
-            window.event.preventDefault();
-         })()">
-      <a class="articlebox_ref" href="statistics/data_analysis/03_draw_graph.html">
-        <a></a>
-        <div class="article_summary">
-          
-          <div class='article_summary_body'><div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [1]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-<span class="o">%</span><span class="k">precision</span> 3
-<span class="o">%</span><span class="k">matplotlib</span> inline
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [2]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython2"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">_</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)])</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
-<span class="c1"># 折れ線グラフ</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'black'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'line plot matplotlib'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'x'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylab</span></pre></div></div></div></div></div></div>
-        </div>
-      </a>
-    </div>
-    
-
-  
-
-    
-    <div class="articlebox" onclick="
-        (function f() {
-            window.location = 'statistics/data_analysis/02_multivariate.html';
-            window.event.preventDefault();
-         })()">
-      <a class="articlebox_ref" href="statistics/data_analysis/02_multivariate.html">
-        <a></a>
-        <div class="article_summary">
-          
-          <div class='article_summary_body'><div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 class="md_header_block" id="%E5%A4%9A%E5%A4%89%E9%87%8F%E3%83%87%E3%83%BC%E3%82%BF">多変量データ<a class="anchor-link" href="#%E5%A4%9A%E5%A4%89%E9%87%8F%E3%83%87%E3%83%BC%E3%82%BF">¶</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [1]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="c1"># 表示桁数</span>
-<span class="o">%</span><span class="k">precision</span> 3
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">'ignore'</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [2]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython2"><pre><span></span><span class="n">fish_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'../data/3-2-1-fish_multi.csv'</span><span class="p">)</span>
-<span class="n">fish_data</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt output_prompt">Out[2]:</div>
-<div class="output_html rendered_html output_subarea output_execute_result"><div>
-
-<table border="1" class="dataframe">
-<thead>
-<tr style="text-align: right;">
-<th></th>
-<th>species</th>
-<th>length</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<th>0</th>
-<td>A</td>
-<td>2</td>
-</tr>
-<tr>
-<th>1</th>
-<td>A</td>
-<td>3</td>
-</tr>
-<tr>
-<th>2</th>
-<td>A</td>
-<td>4</td>
-</tr>
-<tr>
-<th>3</th>
-<td>B</td>
-<td>6</td>
-</tr>
-<tr>
-<th>4</th>
-<td>B</td>
-<td>8</td>
-</tr>
-<tr>
-<th>5</th>
-<td>B</td>
-<td>10</td>
-</tr>
-</tbody>
-</table>
-</div></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [3]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython2"><pre><span></span><span class="n">group</span> <span class="o">=</span> <span class="n">fish_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'species'</span><span class="p">)</span>
-<span class="nb">pr</span></pre></div></div></div></div></div></div>
-        </div>
-      </a>
-    </div>
-    
-
-  
-
-    
-    <div class="articlebox" onclick="
-        (function f() {
-            window.location = 'statistics/data_analysis/08_hypothesis_test.html';
-            window.event.preventDefault();
-         })()">
-      <a class="articlebox_ref" href="statistics/data_analysis/08_hypothesis_test.html">
-        <a></a>
-        <div class="article_summary">
-          
-          <div class='article_summary_body'><div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 class="md_header_block" id="%E7%B5%B1%E8%A8%88%E7%9A%84%E4%BB%AE%E8%A8%AD%E6%A4%9C%E5%AE%9A">統計的仮設検定<a class="anchor-link" href="#%E7%B5%B1%E8%A8%88%E7%9A%84%E4%BB%AE%E8%A8%AD%E6%A4%9C%E5%AE%9A">¶</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 class="md_header_block" id="1%E5%A4%89%E9%87%8F%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE-t%E6%A4%9C%E5%AE%9A">1変量データの t検定<a class="anchor-link" href="#1%E5%A4%89%E9%87%8F%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE-t%E6%A4%9C%E5%AE%9A">¶</a></h2><ul>
-<li>対象: 平均値</li>
-<li>判定すること: 平均値がある値と異なると言えるか</li>
-</ul>
-$$
-t値 = \frac{標本平均-比較対象値}{標準偏差/\sqrt{サンプルサイズ
-}} = \frac{標本平均-比較対象値}{\sqrt{標準誤差}}
-$$
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [9]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
-<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
-<span class="o">%</span><span class="k">prec</span></pre></div></div></div></div></div></div>
-        </div>
-      </a>
-    </div>
-    
-
-  
-
-    
-    <div class="articlebox" onclick="
-        (function f() {
-            window.location = 'statistics/data_analysis/05_features_of_stats.html';
-            window.event.preventDefault();
-         })()">
-      <a class="articlebox_ref" href="statistics/data_analysis/05_features_of_stats.html">
-        <a></a>
-        <div class="article_summary">
-          
-          <div class='article_summary_body'><div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 class="md_header_block" id="%E6%A8%99%E6%9C%AC%E3%81%AE%E7%B5%B1%E8%A8%88%E9%87%8F%E3%81%A8%E6%80%A7%E8%B3%AA">標本の統計量と性質<a class="anchor-link" href="#%E6%A8%99%E6%9C%AC%E3%81%AE%E7%B5%B1%E8%A8%88%E9%87%8F%E3%81%A8%E6%80%A7%E8%B3%AA">¶</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [4]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
-<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
-<span class="o">%</span><span class="k">precision</span> 3
-<span class="o">%</span><span class="k">matplotlib</span> inline
-
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">'ignore'</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [14]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython2"><pre><span></span><span class="n">population</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.8</span></pre></div></div></div></div></div></div>
-        </div>
-      </a>
-    </div>
-    
-
-  
-
-    
-    <div class="articlebox" onclick="
-        (function f() {
-            window.location = 'statistics/data_analysis/07_inference.html';
-            window.event.preventDefault();
-         })()">
-      <a class="articlebox_ref" href="statistics/data_analysis/07_inference.html">
-        <a></a>
-        <div class="article_summary">
-          
-          <div class='article_summary_body'><div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 class="md_header_block" id="%E6%8E%A8%E5%AE%9A">推定<a class="anchor-link" href="#%E6%8E%A8%E5%AE%9A">¶</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [16]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
-<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
-<span class="o">%</span><span class="k">precision</span> 3
-<span class="o">%</span><span class="k">matplotlib</span> inline
-
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">'ignore'</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 class="md_header_block" id="%E7%82%B9%E6%8E%A8%E5%AE%9A">点推定<a class="anchor-link" href="#%E7%82%B9%E6%8E%A8%E5%AE%9A">¶</a></h2><ul>
-<li>母数をある1つの値として指定する推定方法</li>
-<li>母数を推定する場合、標本平均を推定量として使う</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [</div></div></div></div>
-        </div>
-      </a>
-    </div>
-    
-
-  
-
-    
-    <div class="articlebox" onclick="
-        (function f() {
-            window.location = 'statistics/data_analysis/06_norm_distribution.html';
-            window.event.preventDefault();
-         })()">
-      <a class="articlebox_ref" href="statistics/data_analysis/06_norm_distribution.html">
-        <a></a>
-        <div class="article_summary">
-          
-          <div class='article_summary_body'><div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [12]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
-<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
-<span class="o">%</span><span class="k">precision</span> 3
-<span class="o">%</span><span class="k">matplotlib</span> inline
-
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">'ignore'</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 class="md_header_block" id="%E6%AD%A3%E8%A6%8F%E5%88%86%E5%B8%83%E3%81%A8%E5%BF%9C%E7%94%A8">正規分布と応用<a class="anchor-link" href="#%E6%AD%A3%E8%A6%8F%E5%88%86%E5%B8%83%E3%81%A8%E5%BF%9C%E7%94%A8">¶</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 class="md_header_block" id="%E6%AD%A3%E8%A6%8F%E5%88%86%E5%B8%83%E3%81%AE%E6%95%B0%E5%BC%8F">正規分布の数式<a class="anchor-link" href="#%E6%AD%A3%E8%A6%8F%E5%88%86%E5%B8%83%E3%81%AE%E6%95%B0%E5%BC%8F">¶</a></h2>$$
-\mathcal{N(x|\mu, \sigma^2)}
- = \frac{1</div></div></div></div>
-        </div>
-      </a>
-    </div>
-    
-
-  
-
-    
-    <div class="articlebox" onclick="
-        (function f() {
-            window.location = 'statistics/data_analysis/01_univariate_data.html';
-            window.event.preventDefault();
-         })()">
-      <a class="articlebox_ref" href="statistics/data_analysis/01_univariate_data.html">
-        <a></a>
-        <div class="article_summary">
-          
-          <div class='article_summary_body'><div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 class="md_header_block" id="1%E5%A4%89%E9%87%8F%E3%83%87%E3%83%BC%E3%82%BF">1変量データ<a class="anchor-link" href="#1%E5%A4%89%E9%87%8F%E3%83%87%E3%83%BC%E3%82%BF">¶</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [1]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
-<span class="o">%</span><span class="k">precision</span> 3
-
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">'ignore'</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [2]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython2"><pre><span></span><span class="n">fish_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span>
-<span class="n">fish_data</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt output_prompt">Out[2]:</div>
-<div class="output_text output_subarea output_execute_result">
-<pre>array([2, 3, 3, 4, 4, 4, 4, 5, 5, 6])</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [3]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython2"><pre><span></span><span class="c1"># sp.sum(fish_data)</span>
-<span class="c1"># scipy.sum is already deprecated</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">'sum'</span></pre></div></div></div></div></div></div>
-        </div>
-      </a>
-    </div>
-    
-
-  
-
-    
-    <div class="articlebox" onclick="
-        (function f() {
             window.location = 'statistics/linear_model/normal_linear_model.html';
             window.event.preventDefault();
          })()">
@@ -995,6 +490,563 @@ $$
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'E(x) = </span><span class="si">{</span><span class="n">kitaichi</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'E(x) = </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">me</span></pre></div></div></div></div></div></div>
+        </div>
+      </a>
+    </div>
+    
+
+  
+
+    
+    <div class="articlebox" onclick="
+        (function f() {
+            window.location = 'statistics/03_data_analysis/04_data_collect_simulation.html';
+            window.event.preventDefault();
+         })()">
+      <a class="articlebox_ref" href="statistics/03_data_analysis/04_data_collect_simulation.html">
+        <a></a>
+        <div class="article_summary">
+          
+          <div class='article_summary_body'><div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [67]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+
+<span class="o">%</span><span class="k">precision</span> 3
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">'ignore'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 class="md_header_block" id="%E6%AF%8D%E9%9B%86%E5%9B%A3%E3%81%8B%E3%82%89%E6%A8%99%E6%9C%AC%E6%8A%BD%E5%87%BA%E3%81%99%E3%82%8B%E3%82%B7%E3%83%9F%E3%83%A5%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3">母集団から標本抽出するシミュレーション<a class="anchor-link" href="#%E6%AF%8D%E9%9B%86%E5%9B%A3%E3%81%8B%E3%82%89%E6%A8%99%E6%9C%AC%E6%8A%BD%E5%87%BA%E3%81%99%E3%82%8B%E3%82%B7%E3%83%9F%E3%83%A5%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3">¶</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [68]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="c1"># randomに3件抽出</span>
+
+<span class="n">fish_5</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arra</span></pre></div></div></div></div></div></div>
+        </div>
+      </a>
+    </div>
+    
+
+  
+
+    
+    <div class="articlebox" onclick="
+        (function f() {
+            window.location = 'statistics/03_data_analysis/03_draw_graph.html';
+            window.event.preventDefault();
+         })()">
+      <a class="articlebox_ref" href="statistics/03_data_analysis/03_draw_graph.html">
+        <a></a>
+        <div class="article_summary">
+          
+          <div class='article_summary_body'><div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [1]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="o">%</span><span class="k">precision</span> 3
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [2]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">_</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="c1"># 折れ線グラフ</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'black'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'line plot matplotlib'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'x'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylab</span></pre></div></div></div></div></div></div>
+        </div>
+      </a>
+    </div>
+    
+
+  
+
+    
+    <div class="articlebox" onclick="
+        (function f() {
+            window.location = 'statistics/03_data_analysis/02_multivariate.html';
+            window.event.preventDefault();
+         })()">
+      <a class="articlebox_ref" href="statistics/03_data_analysis/02_multivariate.html">
+        <a></a>
+        <div class="article_summary">
+          
+          <div class='article_summary_body'><div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 class="md_header_block" id="%E5%A4%9A%E5%A4%89%E9%87%8F%E3%83%87%E3%83%BC%E3%82%BF">多変量データ<a class="anchor-link" href="#%E5%A4%9A%E5%A4%89%E9%87%8F%E3%83%87%E3%83%BC%E3%82%BF">¶</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [1]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="c1"># 表示桁数</span>
+<span class="o">%</span><span class="k">precision</span> 3
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">'ignore'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [2]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">fish_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'../data/3-2-1-fish_multi.csv'</span><span class="p">)</span>
+<span class="n">fish_data</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[2]:</div>
+<div class="output_html rendered_html output_subarea output_execute_result"><div>
+
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>species</th>
+<th>length</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>A</td>
+<td>2</td>
+</tr>
+<tr>
+<th>1</th>
+<td>A</td>
+<td>3</td>
+</tr>
+<tr>
+<th>2</th>
+<td>A</td>
+<td>4</td>
+</tr>
+<tr>
+<th>3</th>
+<td>B</td>
+<td>6</td>
+</tr>
+<tr>
+<th>4</th>
+<td>B</td>
+<td>8</td>
+</tr>
+<tr>
+<th>5</th>
+<td>B</td>
+<td>10</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [3]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">group</span> <span class="o">=</span> <span class="n">fish_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'species'</span><span class="p">)</span>
+<span class="nb">pr</span></pre></div></div></div></div></div></div>
+        </div>
+      </a>
+    </div>
+    
+
+  
+
+    
+    <div class="articlebox" onclick="
+        (function f() {
+            window.location = 'statistics/03_data_analysis/08_hypothesis_test.html';
+            window.event.preventDefault();
+         })()">
+      <a class="articlebox_ref" href="statistics/03_data_analysis/08_hypothesis_test.html">
+        <a></a>
+        <div class="article_summary">
+          
+          <div class='article_summary_body'><div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 class="md_header_block" id="%E7%B5%B1%E8%A8%88%E7%9A%84%E4%BB%AE%E8%A8%AD%E6%A4%9C%E5%AE%9A">統計的仮設検定<a class="anchor-link" href="#%E7%B5%B1%E8%A8%88%E7%9A%84%E4%BB%AE%E8%A8%AD%E6%A4%9C%E5%AE%9A">¶</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 class="md_header_block" id="1%E5%A4%89%E9%87%8F%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE-t%E6%A4%9C%E5%AE%9A">1変量データの t検定<a class="anchor-link" href="#1%E5%A4%89%E9%87%8F%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE-t%E6%A4%9C%E5%AE%9A">¶</a></h2><ul>
+<li>対象: 平均値</li>
+<li>判定すること: 平均値がある値と異なると言えるか</li>
+</ul>
+$$
+t値 = \frac{標本平均-比較対象値}{標準偏差/\sqrt{サンプルサイズ
+}} = \frac{標本平均-比較対象値}{\sqrt{標準誤差}}
+$$
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [9]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+<span class="o">%</span><span class="k">prec</span></pre></div></div></div></div></div></div>
+        </div>
+      </a>
+    </div>
+    
+
+  
+
+    
+    <div class="articlebox" onclick="
+        (function f() {
+            window.location = 'statistics/03_data_analysis/05_features_of_stats.html';
+            window.event.preventDefault();
+         })()">
+      <a class="articlebox_ref" href="statistics/03_data_analysis/05_features_of_stats.html">
+        <a></a>
+        <div class="article_summary">
+          
+          <div class='article_summary_body'><div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 class="md_header_block" id="%E6%A8%99%E6%9C%AC%E3%81%AE%E7%B5%B1%E8%A8%88%E9%87%8F%E3%81%A8%E6%80%A7%E8%B3%AA">標本の統計量と性質<a class="anchor-link" href="#%E6%A8%99%E6%9C%AC%E3%81%AE%E7%B5%B1%E8%A8%88%E9%87%8F%E3%81%A8%E6%80%A7%E8%B3%AA">¶</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [4]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+<span class="o">%</span><span class="k">precision</span> 3
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">'ignore'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [14]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">population</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.8</span></pre></div></div></div></div></div></div>
+        </div>
+      </a>
+    </div>
+    
+
+  
+
+    
+    <div class="articlebox" onclick="
+        (function f() {
+            window.location = 'statistics/03_data_analysis/07_inference.html';
+            window.event.preventDefault();
+         })()">
+      <a class="articlebox_ref" href="statistics/03_data_analysis/07_inference.html">
+        <a></a>
+        <div class="article_summary">
+          
+          <div class='article_summary_body'><div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 class="md_header_block" id="%E6%8E%A8%E5%AE%9A">推定<a class="anchor-link" href="#%E6%8E%A8%E5%AE%9A">¶</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [16]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+<span class="o">%</span><span class="k">precision</span> 3
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">'ignore'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 class="md_header_block" id="%E7%82%B9%E6%8E%A8%E5%AE%9A">点推定<a class="anchor-link" href="#%E7%82%B9%E6%8E%A8%E5%AE%9A">¶</a></h2><ul>
+<li>母数をある1つの値として指定する推定方法</li>
+<li>母数を推定する場合、標本平均を推定量として使う</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [</div></div></div></div>
+        </div>
+      </a>
+    </div>
+    
+
+  
+
+    
+    <div class="articlebox" onclick="
+        (function f() {
+            window.location = 'statistics/03_data_analysis/06_norm_distribution.html';
+            window.event.preventDefault();
+         })()">
+      <a class="articlebox_ref" href="statistics/03_data_analysis/06_norm_distribution.html">
+        <a></a>
+        <div class="article_summary">
+          
+          <div class='article_summary_body'><div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [12]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+<span class="o">%</span><span class="k">precision</span> 3
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">'ignore'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 class="md_header_block" id="%E6%AD%A3%E8%A6%8F%E5%88%86%E5%B8%83%E3%81%A8%E5%BF%9C%E7%94%A8">正規分布と応用<a class="anchor-link" href="#%E6%AD%A3%E8%A6%8F%E5%88%86%E5%B8%83%E3%81%A8%E5%BF%9C%E7%94%A8">¶</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 class="md_header_block" id="%E6%AD%A3%E8%A6%8F%E5%88%86%E5%B8%83%E3%81%AE%E6%95%B0%E5%BC%8F">正規分布の数式<a class="anchor-link" href="#%E6%AD%A3%E8%A6%8F%E5%88%86%E5%B8%83%E3%81%AE%E6%95%B0%E5%BC%8F">¶</a></h2>$$
+\mathcal{N(x|\mu, \sigma^2)}
+ = \frac{1</div></div></div></div>
+        </div>
+      </a>
+    </div>
+    
+
+  
+
+    
+    <div class="articlebox" onclick="
+        (function f() {
+            window.location = 'statistics/03_data_analysis/01_univariate_data.html';
+            window.event.preventDefault();
+         })()">
+      <a class="articlebox_ref" href="statistics/03_data_analysis/01_univariate_data.html">
+        <a></a>
+        <div class="article_summary">
+          
+          <div class='article_summary_body'><div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 class="md_header_block" id="1%E5%A4%89%E9%87%8F%E3%83%87%E3%83%BC%E3%82%BF">1変量データ<a class="anchor-link" href="#1%E5%A4%89%E9%87%8F%E3%83%87%E3%83%BC%E3%82%BF">¶</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [1]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="o">%</span><span class="k">precision</span> 3
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">'ignore'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [2]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">fish_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span>
+<span class="n">fish_data</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[2]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>array([2, 3, 3, 4, 4, 4, 4, 5, 5, 6])</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [3]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="c1"># sp.sum(fish_data)</span>
+<span class="c1"># scipy.sum is already deprecated</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'sum'</span></pre></div></div></div></div></div></div>
+        </div>
+      </a>
+    </div>
+    
+
+  
+
+    
+    <div class="articlebox" onclick="
+        (function f() {
+            window.location = 'statistics/03_data_analysis/09_mean_dff_test.html';
+            window.event.preventDefault();
+         })()">
+      <a class="articlebox_ref" href="statistics/03_data_analysis/09_mean_dff_test.html">
+        <a></a>
+        <div class="article_summary">
+          
+          <div class='article_summary_body'><div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 class="md_header_block" id="%E5%B9%B3%E5%9D%87%E5%80%A4%E3%81%AE%E5%B7%AE%E3%81%AE%E6%A4%9C%E5%AE%9A">平均値の差の検定<a class="anchor-link" href="#%E5%B9%B3%E5%9D%87%E5%80%A4%E3%81%AE%E5%B7%AE%E3%81%AE%E6%A4%9C%E5%AE%9A">¶</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [1]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+<span class="o">%</span><span class="k">precision</span> 3
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">'ignore'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 class="md_header_block" id="2%E5%A4%89%E9%87%8F%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AB%E5%AF%BE%E3%81%99%E3%82%8Bt%E6%A4%9C%E5%AE%9A">2変量データに対するt検定<a class="anchor-link" href="#2%E5%A4%89%E9%87%8F%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AB%E5%AF%BE%E3%81%99%E3%82%8Bt%E6%A4%9C%E5%AE%9A">¶</a></h2><ul>
+<li>2つの変数の間で、平均値に差があるかどうかを判断する</li>
+<li>例: 薬を飲</li></ul></div></div></div></div>
         </div>
       </a>
     </div>
