@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+<head>
+   
+  
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>平均値の差の検定 - Hypo Driven</title>
+    
+    
+
+  
+
+
+<!-- include docutils5 css -->
+<link rel="stylesheet" href="../../static/docutils_html5/minimal.css">
+  <link rel="stylesheet" href="../../static/docutils_html5/plain.css">
+
+<!-- include pygments css -->
+<link rel="stylesheet" href="../../static/pygments/default.css">
+
+<!-- include boolstrap4 -->
+<link rel="stylesheet" href="../../static/bootstrap4/bootstrap.min.css">
+
+<!-- include jquery.js -->
+<script src="../../static/jquery/jquery.min.js"></script>
+
+<!-- include popper.js -->
+<script src="../../static/popper.js/popper.min.js"></script>
+
+<!-- include boolstrap4 js -->
+<script src="../../static/bootstrap4/bootstrap.min.js"></script>
+
+<!-- include font awesome -->
+<script defer src="../../static/fontawesome/js/all.min.js"></script>
+  <script defer src="../../static/fontawesome/js/v4-shims.min.js"></script>
+
+<!-- include ipynb minimum style -->
+<link rel="stylesheet" href="../../static/ipynb/styles/min_ipynb.css">
+
+<link rel="stylesheet" href="../../static/css/sample_index_pagenation.css">
+<link href="../../static/newblog/ipynb_styles.css" rel="stylesheet">
+
+<!-- Loading mathjax macro -->
+<!-- Load mathjax -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_HTML"></script>
+<!-- MathJax configuration -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true,
+        processEnvironments: true
+    },
+    // Center justify equations in code and markdown cells. Elsewhere
+    // we use CSS to left justify single line equations in code cells.
+    displayAlign: 'center',
+    "HTML-CSS": {
+        styles: {'.MathJax_Display': {"margin": 0}},
+        linebreaks: { automatic: true }
+    }
+});
+</script>
+
+<link rel="stylesheet" href="../../static/newblog/main.css">
+
+
+
+<link href="http://localhost:8888/all.atom.xml" type="application/atom+xml" rel="alternate" title="Hypo Driven Atom Feed" />
+<link href="http://localhost:8888/channews.rdf" type="application/rss+xml" rel="alternate" title="Hypo Driven RSS Feed" />
+
+<meta property="og:url" content="http://localhost:8888/statistics/03_data_analysis/09_mean_dff_test.html" />
+<meta property="og:locale" content="ja-JP" />
+<meta property="og:type" content="article" />
+
+<meta property="og:title" content="平均値の差の検定 - Hypo Driven" />
+
+<meta name="description" content="default page desctiption here"/>
+<meta property="og:description" content="default page desctiption here" />
+
+
+
+
+
+</head>
+
+<body>
+   
+<div>
+
+
+<div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="../../index.html"
+      >
+      
+      Hypo Driven </a
+    >
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" href="../../about.html">このサイトについて</a>
+      </div>
+    </div>
+  </nav>
+</div>
+
+ 
+
+
+
+<div class="container article_container">
+  <div class="row">
+    <div class="col-md-9">
+
+      
+      <div class="article">
+        
+
+        <div class="article_body">
+          <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 class="md_header_block" id="%E5%B9%B3%E5%9D%87%E5%80%A4%E3%81%AE%E5%B7%AE%E3%81%AE%E6%A4%9C%E5%AE%9A">平均値の差の検定<a class="anchor-link" href="#%E5%B9%B3%E5%9D%87%E5%80%A4%E3%81%AE%E5%B7%AE%E3%81%AE%E6%A4%9C%E5%AE%9A">¶</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [1]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+<span class="o">%</span><span class="k">precision</span> 3
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">'ignore'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 class="md_header_block" id="2%E5%A4%89%E9%87%8F%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AB%E5%AF%BE%E3%81%99%E3%82%8Bt%E6%A4%9C%E5%AE%9A">2変量データに対するt検定<a class="anchor-link" href="#2%E5%A4%89%E9%87%8F%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AB%E5%AF%BE%E3%81%99%E3%82%8Bt%E6%A4%9C%E5%AE%9A">¶</a></h2><ul>
+<li>2つの変数の間で、平均値に差があるかどうかを判断する</li>
+<li>例: 薬を飲む前と飲んだ後で、体温に差が出るかどうかを調べる場合など、「同じ対象を異なった条件で2回測定して、その違いを見る」といった場合に対応のあるt検定を用いる<ul>
+<li>飲む前と飲んだ後の差分の平均値が0と異なれば、「薬を飲む前と飲んだ後で体温が異なる」ということを主張することができる(有意水準=5%とする)</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [2]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">paired_test_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'../data/3-9-1-paired-t-test.csv'</span><span class="p">)</span>
+<span class="n">paired_test_data</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[2]:</div>
+<div class="output_html rendered_html output_subarea output_execute_result"><div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type &#123;
+        vertical-align: middle;
+    &#125;
+
+    .dataframe tbody tr th &#123;
+        vertical-align: top;
+    &#125;
+
+    .dataframe thead th &#123;
+        text-align: right;
+    &#125;
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>person</th>
+<th>medicine</th>
+<th>body_temperature</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>A</td>
+<td>before</td>
+<td>36.2</td>
+</tr>
+<tr>
+<th>1</th>
+<td>B</td>
+<td>before</td>
+<td>36.2</td>
+</tr>
+<tr>
+<th>2</th>
+<td>C</td>
+<td>before</td>
+<td>35.3</td>
+</tr>
+<tr>
+<th>3</th>
+<td>D</td>
+<td>before</td>
+<td>36.1</td>
+</tr>
+<tr>
+<th>4</th>
+<td>E</td>
+<td>before</td>
+<td>36.1</td>
+</tr>
+<tr>
+<th>5</th>
+<td>A</td>
+<td>after</td>
+<td>36.8</td>
+</tr>
+<tr>
+<th>6</th>
+<td>B</td>
+<td>after</td>
+<td>36.1</td>
+</tr>
+<tr>
+<th>7</th>
+<td>C</td>
+<td>after</td>
+<td>36.8</td>
+</tr>
+<tr>
+<th>8</th>
+<td>D</td>
+<td>after</td>
+<td>37.1</td>
+</tr>
+<tr>
+<th>9</th>
+<td>E</td>
+<td>after</td>
+<td>36.9</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 class="md_header_block" id="%E5%AF%BE%E5%BF%9C%E3%81%AE%E3%81%82%E3%82%8Bt%E6%A4%9C%E5%AE%9A">対応のあるt検定<a class="anchor-link" href="#%E5%AF%BE%E5%BF%9C%E3%81%AE%E3%81%82%E3%82%8Bt%E6%A4%9C%E5%AE%9A">¶</a></h2><p>薬を飲む前と飲んだ後における、体温の差を計算</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [11]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="c1"># 薬を飲む前と飲んだ後の標本平均</span>
+<span class="n">before</span> <span class="o">=</span> <span class="n">paired_test_data</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">'medicine == "before"'</span><span class="p">)[</span><span class="s1">'body_temperature'</span><span class="p">]</span>
+<span class="n">after</span> <span class="o">=</span> <span class="n">paired_test_data</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">'medicine == "after"'</span><span class="p">)[</span><span class="s1">'body_temperature'</span><span class="p">]</span>
+
+<span class="n">before</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">before</span><span class="p">)</span>
+<span class="n">after</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">after</span><span class="p">)</span>
+
+<span class="n">diff</span> <span class="o">=</span> <span class="n">after</span> <span class="o">-</span> <span class="n">before</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span>
+<span class="c1"># t検定 比較対象値=0(差が0であるかを検証するため)</span>
+<span class="c1"># 有意水準: 5%= pvalue&lt;=0.05</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">ttest_1samp</span><span class="p">(</span><span class="n">diff</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">ttest_rel</span><span class="p">(</span><span class="n">after</span><span class="p">,</span> <span class="n">before</span><span class="p">))</span>
+<span class="c1"># よって、pvalue&lt;0.05であるため、「薬を飲む前と後の体温は異なる」と主張可能になる</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[ 0.6 -0.1  1.5  1.   0.8]
+Ttest_1sampResult(statistic=2.901693483620596, pvalue=0.044043109730074276)
+Ttest_relResult(statistic=2.901693483620596, pvalue=0.044043109730074276)
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 class="md_header_block" id="%E5%AF%BE%E5%BF%9C%E3%81%AE%E7%84%A1%E3%81%84t%E6%A4%9C%E5%AE%9A">対応の無いt検定<a class="anchor-link" href="#%E5%AF%BE%E5%BF%9C%E3%81%AE%E7%84%A1%E3%81%84t%E6%A4%9C%E5%AE%9A">¶</a></h2><ul>
+<li>対応の無いt検定は「平均値の差」に注目する</li>
+<li>対応のあるt検定では「データの差」をとってから1群のt検定を実施した点と異なる</li>
+</ul>
+$$
+t値 = \frac{標本平均-比較対象}{標本偏差/\sqrt{サンプルサイズ}} = \frac{標本平均-比較対象}{標準誤差}
+$$<p>変数xとyの平均値の差を検定するとする。変数xは「大きい針で釣った魚の体長」で変数yは「小さい針で釣った魚の体長」とする。対応の無いt検定のt値は以下のような数式になる</p>
+$$ t = \frac{\hat{\mu}_x-\hat{\mu}_y}{\sqrt{\hat{\sigma^2}_x/m+\hat{\sigma^2}_y/m}} $$<ul>
+<li><code>\hat{\mu}_x</code>はxの標本平均で、<code>\hat{\mu}_y</code>はyの標本平均</li>
+<li>mはxのサンプルサイズで、nはyのサンプルサイズ</li>
+<li><code>\hat{\sigma^2}_x</code>はxの不偏分散で、<code>\hat{\sigma^2}_y</code>はyの不偏分散</li>
+</ul>
+<p>基本的には、1群のt検定におけるt値と同様だが、2つの変数で分散が異なっていることを仮定した上で計算をしている。また、2群の場合は、t分布の自由度が複雑になる。<code>Welch</code>近似法と呼ばれる方法を使ってp値を計算することになる。</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [13]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">mean_bef</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">before</span><span class="p">)</span>
+<span class="n">mean_aft</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">after</span><span class="p">)</span>
+
+<span class="n">sigma_bef</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">before</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">sigma_aft</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">after</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">before</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">after</span><span class="p">)</span>
+<span class="c1"># t値</span>
+<span class="n">t_value</span> <span class="o">=</span> <span class="p">(</span><span class="n">mean_bef</span><span class="o">-</span><span class="n">mean_aft</span><span class="p">)</span> <span class="o">/</span> <span class="n">sp</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">sigma_bef</span><span class="o">/</span><span class="n">m</span> <span class="o">+</span> <span class="n">sigma_aft</span><span class="o">/</span><span class="n">n</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'t_value: </span><span class="si">{</span><span class="n">t_value</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+<span class="c1"># equal_var=False は分散が異なることを仮定したt検定(=Welch)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">after</span><span class="p">,</span> <span class="n">before</span><span class="p">,</span> <span class="n">equal_var</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>t_value: -3.1557282344421034
+Ttest_indResult(statistic=3.1557282344421034, pvalue=0.013484775682079892)
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>p値が「対応のあるt検定」の結果と異なっている。
+同じデータに対して同じ目的の検定を行っても、検定手法が変わるとp値も変わる</p>
+<ul>
+<li>古い統計入門書では、「データの等分散性を検定した後、分散が異なることを仮定したt検定か、分散が等しいことを仮定したt検定を使いわkる」と書かれていた</li>
+<li>しかし、当分参加どうか調べるまでもなく、常に分散が異なることを仮定したt検定を使っても問題はない。つまり、常にWelchの検定を使って良い</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 class="md_header_block" id="p%E3%83%8F%E3%83%83%E3%82%AD%E3%83%B3%E3%82%B0">pハッキング<a class="anchor-link" href="#p%E3%83%8F%E3%83%83%E3%82%AD%E3%83%B3%E3%82%B0">¶</a></h2><ul>
+<li>平均値の差の検定という、1つの目的のためにも、複数の検定手法がある<ul>
+<li>Welch</li>
+<li>マンホイットニーのU検定</li>
+</ul>
+</li>
+<li>悠一成の出やすさは各々の検定手法により異なる</li>
+<li>対応のあるt検定と対応の無いt検定では、p値は異なる<ul>
+<li>有意差が得られるまで、何度も何度も検定の手法を切り替えていく人がいる</li>
+<li>しかし、そのようにして有意差が得られたとして、何の意味があるか。</li>
+<li>有意差とは、サンプルサイズやデータのばらつきなど特徴を包括的にまとめて意味があるかを判断する考え方である</li>
+</ul>
+</li>
+</ul>
+<p>p値という数値にこだわって「自分の欲しい結果を得るための分析」にしてしまうことは最も避けないといけない
+<em>分析者は、他の対象にはどうであれ、少なくとも1つ、データにだけは誠実でいなければならない</em></p>
+</div>
+</div>
+</div>
+
+        </div>
+      </div>
+      
+    </div>
+
+    <div class="col-md-3">
+    
+      
+      <div class="article_metadata article_tags">
+        
+        <div class="article_tag_links">
+          
+        </div>
+      </div>
+
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+        <div class="article_metadata article_toc">
+          <ul class="toc">
+            
+              
+                <li class="h_h2"><a href='09_mean_dff_test.html#2%E5%A4%89%E9%87%8F%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AB%E5%AF%BE%E3%81%99%E3%82%8Bt%E6%A4%9C%E5%AE%9A' >2変量データに対するt検定</a></li>
+              
+            
+              
+                <li class="h_h2"><a href='09_mean_dff_test.html#%E5%AF%BE%E5%BF%9C%E3%81%AE%E3%81%82%E3%82%8Bt%E6%A4%9C%E5%AE%9A' >対応のあるt検定</a></li>
+              
+            
+              
+                <li class="h_h2"><a href='09_mean_dff_test.html#%E5%AF%BE%E5%BF%9C%E3%81%AE%E7%84%A1%E3%81%84t%E6%A4%9C%E5%AE%9A' >対応の無いt検定</a></li>
+              
+            
+              
+                <li class="h_h2"><a href='09_mean_dff_test.html#p%E3%83%8F%E3%83%83%E3%82%AD%E3%83%B3%E3%82%B0' >pハッキング</a></li>
+              
+            
+          </ul>
+        </div>
+      
+
+      
+
+    
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<div class="container">
+  <div class="copyright">
+      <p class="copyright-text">Copyright © 20xx copyright holder</p>
+      <p class="copyright-text">Powered by <a href="https://github.com/miyadaiku/miyadaiku">miyadaiku</a></p>
+  </div>
+</div>
+
+
+
+</div>
+
+
+</body>
+</html>

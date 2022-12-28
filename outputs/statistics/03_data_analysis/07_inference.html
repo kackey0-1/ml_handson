@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+<head>
+   
+  
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>推定 - Hypo Driven</title>
+    
+    
+
+  
+
+
+<!-- include docutils5 css -->
+<link rel="stylesheet" href="../../static/docutils_html5/minimal.css">
+  <link rel="stylesheet" href="../../static/docutils_html5/plain.css">
+
+<!-- include pygments css -->
+<link rel="stylesheet" href="../../static/pygments/default.css">
+
+<!-- include boolstrap4 -->
+<link rel="stylesheet" href="../../static/bootstrap4/bootstrap.min.css">
+
+<!-- include jquery.js -->
+<script src="../../static/jquery/jquery.min.js"></script>
+
+<!-- include popper.js -->
+<script src="../../static/popper.js/popper.min.js"></script>
+
+<!-- include boolstrap4 js -->
+<script src="../../static/bootstrap4/bootstrap.min.js"></script>
+
+<!-- include font awesome -->
+<script defer src="../../static/fontawesome/js/all.min.js"></script>
+  <script defer src="../../static/fontawesome/js/v4-shims.min.js"></script>
+
+<!-- include ipynb minimum style -->
+<link rel="stylesheet" href="../../static/ipynb/styles/min_ipynb.css">
+
+<link rel="stylesheet" href="../../static/css/sample_index_pagenation.css">
+<link href="../../static/newblog/ipynb_styles.css" rel="stylesheet">
+
+<!-- Loading mathjax macro -->
+<!-- Load mathjax -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_HTML"></script>
+<!-- MathJax configuration -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true,
+        processEnvironments: true
+    },
+    // Center justify equations in code and markdown cells. Elsewhere
+    // we use CSS to left justify single line equations in code cells.
+    displayAlign: 'center',
+    "HTML-CSS": {
+        styles: {'.MathJax_Display': {"margin": 0}},
+        linebreaks: { automatic: true }
+    }
+});
+</script>
+
+<link rel="stylesheet" href="../../static/newblog/main.css">
+
+
+
+<link href="http://localhost:8888/all.atom.xml" type="application/atom+xml" rel="alternate" title="Hypo Driven Atom Feed" />
+<link href="http://localhost:8888/channews.rdf" type="application/rss+xml" rel="alternate" title="Hypo Driven RSS Feed" />
+
+<meta property="og:url" content="http://localhost:8888/statistics/03_data_analysis/07_inference.html" />
+<meta property="og:locale" content="ja-JP" />
+<meta property="og:type" content="article" />
+
+<meta property="og:title" content="推定 - Hypo Driven" />
+
+<meta name="description" content="default page desctiption here"/>
+<meta property="og:description" content="default page desctiption here" />
+
+
+
+
+
+</head>
+
+<body>
+   
+<div>
+
+
+<div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="../../index.html"
+      >
+      
+      Hypo Driven </a
+    >
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" href="../../about.html">このサイトについて</a>
+      </div>
+    </div>
+  </nav>
+</div>
+
+ 
+
+
+
+<div class="container article_container">
+  <div class="row">
+    <div class="col-md-9">
+
+      
+      <div class="article">
+        
+
+        <div class="article_body">
+          <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 class="md_header_block" id="%E6%8E%A8%E5%AE%9A">推定<a class="anchor-link" href="#%E6%8E%A8%E5%AE%9A">¶</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [16]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+<span class="o">%</span><span class="k">precision</span> 3
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">'ignore'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 class="md_header_block" id="%E7%82%B9%E6%8E%A8%E5%AE%9A">点推定<a class="anchor-link" href="#%E7%82%B9%E6%8E%A8%E5%AE%9A">¶</a></h2><ul>
+<li>母数をある1つの値として指定する推定方法</li>
+<li>母数を推定する場合、標本平均を推定量として使う</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [17]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">fish</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'../data/3-7-1-fish_length.csv'</span><span class="p">)[</span><span class="s1">'length'</span><span class="p">]</span>
+<span class="c1"># 母平均の点推定値としては、標本平均を利用</span>
+<span class="n">mu</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">fish</span><span class="p">)</span>
+<span class="c1"># 母分散の点推定値としては、不偏分散を利用</span>
+<span class="n">sigma_2</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">fish</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'標本平均: </span><span class="si">{</span><span class="n">mu</span><span class="si">}</span><span class="s1">, 不偏分散: </span><span class="si">{</span><span class="n">sigma_2</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>標本平均: 4.187039324504523, 不偏分散: 0.6803017080832623
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 class="md_header_block" id="%E5%8C%BA%E9%96%93%E6%8E%A8%E5%AE%9A">区間推定<a class="anchor-link" href="#%E5%8C%BA%E9%96%93%E6%8E%A8%E5%AE%9A">¶</a></h2><ul>
+<li>推定値に幅を持たせた推定方法のことを指す</li>
+<li>幅を持たせることで、推定誤差を加味することが可能になる<ul>
+<li>サンプルサイズが大きくなることで、区間推定の幅は小さくなる(=大数の法則)</li>
+</ul>
+</li>
+<li>信頼係数: 区間推定の幅における信頼度合いを、確率で表現したもの</li>
+<li>信頼区間: ある信頼係数を満たす区間</li>
+<li>信頼限界: 信頼区間の下限値・上限値のこと</li>
+</ul>
+$$ t = \frac{\hat{\mu}-\mu}{\hat{\sigma}/\sqrt{N}}
+ = \frac{標本平均-母平均}{標準誤差} $$<p>信頼区間を95%とするなら、t分布における2.5%点と97.5%点を計算することで求めることができる。
+t分布に従う変数が、2.5%点と97.5%点の区間に入る確率が95%ということになる</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [18]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">fish</span><span class="p">)</span> <span class="o">-</span><span class="mi">1</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">fish</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">se</span> <span class="o">=</span> <span class="n">sigma</span> <span class="o">/</span> <span class="n">sp</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fish</span><span class="p">))</span>
+
+<span class="n">t_975</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">q</span><span class="o">=</span><span class="mf">0.975</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+<span class="n">t_025</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">q</span><span class="o">=</span><span class="mf">0.025</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+<span class="n">upper</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">t_025</span> <span class="o">*</span> <span class="n">se</span><span class="p">)</span> <span class="o">+</span> <span class="n">mu</span>
+<span class="n">lower</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">t_975</span> <span class="o">*</span> <span class="n">se</span><span class="p">)</span> <span class="o">+</span> <span class="n">mu</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">)</span>
+<span class="n">interval</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">interval</span><span class="p">(</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">se</span>
+<span class="p">)</span>
+<span class="n">interval</span>
+<span class="c1"># 3.597 ~ 4.777 が95%信頼区間</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>3.597010056835825 4.777068592173222
+</pre>
+</div>
+</div>
+<div class="output_area">
+<div class="prompt output_prompt">Out[18]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>(3.597, 4.777)</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 class="md_header_block" id="%E4%BF%A1%E9%A0%BC%E5%8C%BA%E9%96%93%E3%81%AE%E5%B9%85%E3%82%92%E6%B1%BA%E3%82%81%E3%82%8B%E8%A6%81%E7%B4%A0">信頼区間の幅を決める要素<a class="anchor-link" href="#%E4%BF%A1%E9%A0%BC%E5%8C%BA%E9%96%93%E3%81%AE%E5%B9%85%E3%82%92%E6%B1%BA%E3%82%81%E3%82%8B%E8%A6%81%E7%B4%A0">¶</a></h2><ul>
+<li>信頼区間の幅が広い(=分散が大きい)というのは、「真の母平均がどこに位置しているのかわからない」ということを指す</li>
+<li>サンプルサイズが大きくなることで、標本平均を信頼できるようになるため、信頼区間は狭くなる</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [21]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">se2</span> <span class="o">=</span> <span class="p">(</span><span class="n">sigma</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span><span class="o">/</span><span class="n">sp</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fish</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">interval</span><span class="p">(</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">se2</span>
+<span class="p">))</span>
+
+<span class="n">df2</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fish</span><span class="p">)</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
+<span class="n">se3</span> <span class="o">=</span> <span class="n">sigma</span><span class="o">/</span><span class="n">sp</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fish</span><span class="p">)</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">interval</span><span class="p">(</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">df2</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">se3</span>
+<span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>(-1.7132533521824609, 10.087332001191507)
+(4.0233803082774395, 4.350698340731607)
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 class="md_header_block" id="%E5%8C%BA%E9%96%93%E6%8E%A8%E5%AE%9A%E3%81%AE%E7%B5%90%E6%9E%9C%E8%A7%A3%E9%87%88">区間推定の結果解釈<a class="anchor-link" href="#%E5%8C%BA%E9%96%93%E6%8E%A8%E5%AE%9A%E3%81%AE%E7%B5%90%E6%9E%9C%E8%A7%A3%E9%87%88">¶</a></h2><ol>
+<li>真の母集団分布から標本を抽出する</li>
+<li>今回と同じやり方で95%信頼区間を計算</li>
+<li>この試行を繰り返す</li>
+<li>全ての試行のうち、真の母数が信頼区間に含まれている割合が95%になる</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [35]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython2"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">20000</span>
+<span class="n">be_included_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">'bool'</span><span class="p">)</span>
+<span class="c1"># 95%信頼区間を求める試行を 20000 回繰り返す</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">norm_dist</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+    <span class="n">sample</span> <span class="o">=</span> <span class="n">norm_dist</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="n">mu</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+    <span class="n">std</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">se</span> <span class="o">=</span> <span class="n">std</span> <span class="o">/</span> <span class="n">sp</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sample</span><span class="p">))</span>
+    <span class="n">interval</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">interval</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">se</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">interval</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">4</span> <span class="o">&lt;=</span> <span class="n">interval</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="n">be_included_array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="nb">sum</span><span class="p">(</span><span class="n">be_included_array</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">be_included_array</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[35]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>0.948</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+        </div>
+      </div>
+      
+    </div>
+
+    <div class="col-md-3">
+    
+      
+      <div class="article_metadata article_tags">
+        
+        <div class="article_tag_links">
+          
+        </div>
+      </div>
+
+      
+
+      
+      
+      
+        
+          
+        
+      
+      
+        <div class="article_metadata article_toc">
+          <ul class="toc">
+            
+              
+                <li class="h_h2"><a href='07_inference.html#%E7%82%B9%E6%8E%A8%E5%AE%9A' >点推定</a></li>
+              
+            
+              
+                <li class="h_h2"><a href='07_inference.html#%E5%8C%BA%E9%96%93%E6%8E%A8%E5%AE%9A' >区間推定</a></li>
+              
+            
+              
+                <li class="h_h2"><a href='07_inference.html#%E4%BF%A1%E9%A0%BC%E5%8C%BA%E9%96%93%E3%81%AE%E5%B9%85%E3%82%92%E6%B1%BA%E3%82%81%E3%82%8B%E8%A6%81%E7%B4%A0' >信頼区間の幅を決める要素</a></li>
+              
+            
+              
+                <li class="h_h2"><a href='07_inference.html#%E5%8C%BA%E9%96%93%E6%8E%A8%E5%AE%9A%E3%81%AE%E7%B5%90%E6%9E%9C%E8%A7%A3%E9%87%88' >区間推定の結果解釈</a></li>
+              
+            
+          </ul>
+        </div>
+      
+
+      
+
+    
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<div class="container">
+  <div class="copyright">
+      <p class="copyright-text">Copyright © 20xx copyright holder</p>
+      <p class="copyright-text">Powered by <a href="https://github.com/miyadaiku/miyadaiku">miyadaiku</a></p>
+  </div>
+</div>
+
+
+
+</div>
+
+
+</body>
+</html>
